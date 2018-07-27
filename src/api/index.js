@@ -3,17 +3,19 @@
 
 import axios from 'axios';
 import store from '../vuex'
-// axios.defaults.headers.common['Authorization'] = 'dailu';
-axios.defaults.headers.post['Content-Type'] = 'application/json'
+// axios.defaults.headers.post['Content-Type'] = 'application/json'
 
 const instance = axios.create();
 const front_instance = axios.create();
 instance.defaults.headers.post['Content-Type'] = 'application/json'
-if (localStorage.getItem('jwt')) {
-  /* localStorage.getItem('jwt')是带引号的字符串
+if (sessionStorage.getItem('jwt')) {
+  /* sessionStorage.getItem('jwt')是带引号的字符串
     Bearer token(通过Authorization头部字段发送到服务端便于验证)的格式：Bearer XXXXXXXXXX
   */
-  instance.defaults.headers.common['Authorization'] = "Bearer " + localStorage.getItem('jwt').replace(/(^\")|(\"$)/g, '')
+ console.log(11111)
+ instance.defaults.headers.common['Authorization'] = "Bearer "+sessionStorage.getItem('jwt')
+}else{
+  console.log(22222)
 }
 // axios拦截请求
 axios.interceptors.request.use = instance.interceptors.request.use = front_instance.interceptors.request.use
@@ -35,11 +37,11 @@ front_instance.interceptors.response.use(response => {
 export default {
   // 注册
   localReg(data) {
-    return axios.post('/auth/reg', data)
+    return axios.post('/auth/userReg', data)
   },
   // 登录
   localLogin(data) {
-    return axios.post('/auth/user', data)
+    return axios.post('/auth/userLogin', data)
   },
   // //获取文章列表{不带分页获取}
   getArticleList() {

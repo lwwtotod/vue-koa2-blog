@@ -11,7 +11,7 @@ import 'nprogress/nprogress.css'
 import './assets/css/commen.css';
 import Axios from 'axios'
 
-Vue.prototype.$http = Axios // 类似于vue-resource的调用方法，之后可以在实例里直接用this.$http.get()
+// Vue.prototype.$http = Axios // 类似于vue-resource的调用方法，之后可以在实例里直接用this.$http.get()
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
@@ -27,7 +27,7 @@ router.beforeEach((to, from, next) => {
     next();
   } else {
     if (token != 'null' && token != null) {
-      Vue.prototype.$http.defaults.headers.common['Authorization'] = 'Bearer ' + token; // 全局设定header的token验证，注意Bearer后有个空格
+        Axios.defaults.headers.common['Authorization'] = 'Bearer ' + token; // 全局设定header的token验证，注意Bearer后有个空格
       next()
     } else {
       next()

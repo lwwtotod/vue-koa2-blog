@@ -25,7 +25,7 @@ export default {
             .then(res => {
                 if (res.data.success) {
                     // 找到用户
-                    sessionStorage.setItem('jwt', res.data.token);
+                    // sessionStorage.setItem('jwt', res.data.token);
                     commit('USER_SIGNIN', res.data.token)
                     router.replace({ path: '/admin/articleList' })
                 } else {

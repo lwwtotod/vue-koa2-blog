@@ -8,7 +8,8 @@ const getUserInfo = async function (ctx) {
   ctx.body = result // 将请求的结果放到response的body里返回
 }
 
-const postUserAuth = async function (ctx) {
+const postUserLogin = async function (ctx) {
+  console.log(ctx,`1111`)
   const data = ctx.request.body // post过来的数据存在request.body里
   const userInfo = await user.getUserByName(data.name)
   if (userInfo != null) { // 如果查无此用户会返回null
@@ -22,7 +23,7 @@ const postUserAuth = async function (ctx) {
         name: userInfo.user_name,
         id: userInfo.id
       }
-      const secret = 'jwt' // 指定密钥
+      const secret = 'jwtsss' // 指定密钥
       const token = jwt.sign(userToken, secret) // 签发token
       ctx.body = {
         success: true,
@@ -36,8 +37,9 @@ const postUserAuth = async function (ctx) {
     }
   }
 }
-
+// 用户注册
 const postUserReg = async function (ctx) {
+  console.log(ctx)
   const data = ctx.request.body
   const success = await user.createUser(data)
   ctx.body = {
@@ -47,6 +49,6 @@ const postUserReg = async function (ctx) {
 
 export default {
   getUserInfo,
-  postUserAuth,
+  postUserLogin,
   postUserReg
 }
