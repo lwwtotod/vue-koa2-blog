@@ -3,10 +3,8 @@
 
 import axios from 'axios';
 import store from '../vuex'
-// axios.defaults.headers.post['Content-Type'] = 'application/json'
-
 const instance = axios.create();
-const front_instance = axios.create();
+// const front_instance = axios.create();
 instance.defaults.headers.post['Content-Type'] = 'application/json'
 if (sessionStorage.getItem('jwt')) {
   /* sessionStorage.getItem('jwt')是带引号的字符串
@@ -18,22 +16,22 @@ if (sessionStorage.getItem('jwt')) {
   console.log(22222)
 }
 // axios拦截请求
-axios.interceptors.request.use = instance.interceptors.request.use = front_instance.interceptors.request.use
-front_instance.interceptors.request.use(config => {
-  store.dispatch('showProgress', 20)
-  return config
-}, err => {
-  // store.dispatch('showProgress',100)
-  return Promise.reject(err)
-})
-// axios拦截响应
-front_instance.interceptors.response.use(response => {
-  store.dispatch('showProgress', 100)
-  return response
-}, err => {
-  store.dispatch('showProgress', 100)
-  return Promise.reject(err)
-})
+// axios.interceptors.request.use = instance.interceptors.request.use = front_instance.interceptors.request.use
+// front_instance.interceptors.request.use(config => {
+//   store.dispatch('showProgress', 20)
+//   return config
+// }, err => {
+//   // store.dispatch('showProgress',100)
+//   return Promise.reject(err)
+// })
+// // axios拦截响应
+// front_instance.interceptors.response.use(response => {
+//   store.dispatch('showProgress', 100)
+//   return response
+// }, err => {
+//   store.dispatch('showProgress', 100)
+//   return Promise.reject(err)
+// })
 export default {
   // 注册
   localReg(data) {
