@@ -177,7 +177,7 @@ p, .tags_main p {
   -webkit-line-clamp: 4; // 限制快级元素的文本行数
   overflow: hidden;
   font-family: 'Comic Sans MS', curslve, sans-serif;
-  padding: 0.6rem 0;
+  // padding: 0.6rem 0;
   font-size: 1.8rem;
   color: #7f8c8d;
 }
