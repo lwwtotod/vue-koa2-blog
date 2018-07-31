@@ -20,7 +20,7 @@ const createArticle = async function (data) {
         user_name: data.user_name,
         classification: data.classification,
         content: data.content,
-        Creation_time: "2016-08-03 00:00:00",
+        Creation_time: "2016-08-03 00:00:00",       
         founder: data.founder,
     })
     return true
