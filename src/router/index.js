@@ -2,11 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import store from '../vuex'
 import routes from './routes'
-
+import backRotes from './back-end'
 Vue.use(VueRouter)
 
 //路由滚动行为
-const scrollBehavior =(to, from, savedPosition)=> {
+const scrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
     return savedPosition
   } else {
@@ -16,27 +16,28 @@ const scrollBehavior =(to, from, savedPosition)=> {
 
 const router = new VueRouter({
   mode: 'history', //HTML5 History 模式
-  routes,
+  routes:backRotes,
+  // routes,
   scrollBehavior
 })
 // 路由钩子
-router.beforeEach(({meta,path},from,next)=>{
-  store.dispatch('showProgress',0)
-  let {auth=true}=meta
-  let isLogin = Boolean(store.state.token)
-  /*
-      访问不需要权限的设置meta:false
-      注册也要设置成meta:false
-  */
-  if(auth&&!isLogin&&path!=='/login'){
-    return next({path:'/login'})
-  }
-  // 如果登录了以后再访问reg和login则路由到Home
-  if(isLogin&&(path=='/login'||path=='/reg')){
-    return next({path:'/admin'});
-  }
-  // 未登录的情况下访问reg则直接路由
-  next();
-})
+// router.beforeEach(({ meta, path }, from, next) => {
+//   store.dispatch('showProgress', 0)
+//   let { auth = true } = meta
+//   let isLogin = Boolean(store.state.token)
+//   /*
+//       访问不需要权限的设置meta:false
+//       注册也要设置成meta:false
+//   */
+//   if (auth && !isLogin && path !== '/login') {
+//     return next({ path: '/login' })
+//   }
+//   // 如果登录了以后再访问reg和login则路由到Home
+//   if (isLogin && (path == '/login' || path == '/reg')) {
+//     return next({ path: '/admin' });
+//   }
+//   // 未登录的情况下访问reg则直接路由
+//   next();
+// })
 
 export default router
