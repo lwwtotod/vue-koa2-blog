@@ -1,43 +1,34 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import store from '../vuex'
-import routes from './routes'
-import backRotes from './back-end'
-Vue.use(VueRouter)
+import Vue from "vue";
+import VueRouter from "vue-router";
+import signUp from './../view/back-end/sign-up'
+import signIn from './../view/back-end/sign-in'
+Vue.use(VueRouter);
 
 //路由滚动行为
 const scrollBehavior = (to, from, savedPosition) => {
   if (savedPosition) {
-    return savedPosition
+    return savedPosition;
   } else {
-    return { x: 0, y: 0 }
+    return { x: 0, y: 0 };
   }
-}
+};
 
-const router = new VueRouter({
-  mode: 'history', //HTML5 History 模式
-  routes:backRotes,
-  // routes,
+export default new VueRouter({
+  mode: "history", //HTML5 History 模式
+  routes: [
+    //注册
+    {
+      path: "/login",
+      component: signUp,
+      meta: { auth: false },
+      hidden: true
+    },
+    //登录
+    {
+      path: "/signin",
+      component: signIn,
+      hidden: true
+    }
+  ],
   scrollBehavior
-})
-// 路由钩子
-// router.beforeEach(({ meta, path }, from, next) => {
-//   store.dispatch('showProgress', 0)
-//   let { auth = true } = meta
-//   let isLogin = Boolean(store.state.token)
-//   /*
-//       访问不需要权限的设置meta:false
-//       注册也要设置成meta:false
-//   */
-//   if (auth && !isLogin && path !== '/login') {
-//     return next({ path: '/login' })
-//   }
-//   // 如果登录了以后再访问reg和login则路由到Home
-//   if (isLogin && (path == '/login' || path == '/reg')) {
-//     return next({ path: '/admin' });
-//   }
-//   // 未登录的情况下访问reg则直接路由
-//   next();
-// })
-
-export default router
+});
