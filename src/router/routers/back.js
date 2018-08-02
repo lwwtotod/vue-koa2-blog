@@ -1,8 +1,11 @@
-import Login from "./../../view/back-end/login";
-
-export default [
-  {
+export default [{
     path: "/test-login",
-    component: Login
-  }
+    component: () =>
+      import ('@/view/back-end/sign-up')
+  },
+  // {
+  //   path: "/test-login",
+  //   component: () =>
+  //     import ('@/view/back-end/sign-up')
+  // }
 ];
