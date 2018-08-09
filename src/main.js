@@ -9,12 +9,14 @@ import 'element-ui/lib/theme-chalk/index.css'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import './assets/css/commen.css';
+import iView from 'iview';
+import 'iview/dist/styles/iview.css';
 import Axios from 'axios'
 
-// Vue.prototype.$http = Axios // 类似于vue-resource的调用方法，之后可以在实例里直接用this.$http.get()
 Vue.config.productionTip = false
 
 Vue.use(ElementUI)
+Vue.use(iView)
 Vue.use(nprogress)
 /* eslint-disable no-new */
 // router.beforeEach(({ meta, path }, from, next) => {

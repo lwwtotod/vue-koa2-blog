@@ -19,14 +19,14 @@
             </el-dropdown>
           </el-col>
       </el-col>
-    </el-row>
+    </el-row> 
     <!-- 顶部导航结束 -->
     <el-row  class="panel-center">
       <el-col :span="5">
         <el-menu  theme="dark"  router :default-active="currentPath">
             <template v-for="(item,index) in $router.options.routes" v-if='!item.hidden'>
                 <el-submenu :index="index+''">
-                  <template slot="title"><i :class="item.iconCls" ></i>{{item.name}}</template>
+                  <template slot="title"><i :class="item.icon" ></i>{{item.name}}</template>
                   <el-menu-item v-for="child in item.children" :index="item.path+'/'+child.path" v-if="!child.hidden">{{child.name}}</el-menu-item>
                 </el-submenu>
             </template>
