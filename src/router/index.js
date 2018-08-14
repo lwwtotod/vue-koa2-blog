@@ -1,6 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import frontRouter from "./routers/front.js"
+import frontRouter from "./routers/front"
 import backRouter from './routers/back'
 
 Vue.use(VueRouter);

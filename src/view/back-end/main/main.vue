@@ -15,7 +15,15 @@
       <Layout>
         <Header :style="{background: '#fff', boxShadow: '0 2px 3px 2px rgba(0,0,0,.1)'}">
           <div class="user-avatar">
-            <Avatar>USER</Avatar>
+            <Poptip>
+              <Avatar>USER</Avatar>
+              <div slot="content">
+                <span>编辑信息</span>
+                <br>
+                <span>账户注销</span>
+              </div>
+            </Poptip>
+            
           </div>
         </Header>
         <router-view></router-view>
@@ -38,9 +46,9 @@ export default {
       ]
     }
   },
-  methods:{
-    routerGo(item){
-      console.log(item,111)
+  methods: {
+    routerGo(item) {
+      console.log(item, 111)
     }
   },
   created() {
@@ -80,7 +88,8 @@ export default {
   font-size: 22px;
 }
 
-.user-avatar{
+.user-avatar {
   float: right;
+  margin-right: 20px;
 }
 </style>

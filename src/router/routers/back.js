@@ -16,7 +16,8 @@ export default [{
   {
     path: "articleCreate",
     component: () =>
-      import ('@/components/admin/articleCreate'),
+      // import ('@/components/admin/articleCreate'),
+      import ('@/view/back-end/Main/Components/ArticleEdit'),
     name: "创建文章",
     hidden: true
   },
@@ -30,7 +31,8 @@ export default [{
   {
     path: "classList",
     component: () =>
-      import ('@/components/admin/ClassList'),
+      // import ('@/components/admin/ClassList'),
+      import ('@/view/back-end/Main/Components/ClassList'),
     name: "分类管理",
     icon: "ios-albums-outline"
   }

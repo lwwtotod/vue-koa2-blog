@@ -3,18 +3,18 @@
     <Content :style="{padding: '0 16px 16px'}">
       <Breadcrumb :style="{margin: '16px 0'}">
         <BreadcrumbItem>Home</BreadcrumbItem>
-        <BreadcrumbItem>Article</BreadcrumbItem>
-        <BreadcrumbItem>Article List</BreadcrumbItem>
+        <BreadcrumbItem>Class</BreadcrumbItem>
+        <BreadcrumbItem>Class List</BreadcrumbItem>
       </Breadcrumb>
       <Row>
         <Col span="24">
         <div class="new-Article-Button">
-          <Button type="primary" shape="circle" icon="md-add" to="/admin/articleCreate"></Button>
+          <Button type="primary" shape="circle" icon="md-add"></Button>
         </div>
         </Col>
       </Row>
       <div>
-        <Table :loading="loading" :columns="columns" :data="articleLists"></Table>
+        <Table :loading="loading" :columns="columns" :data="classlist"></Table>
       </div>
       <div class="page-paging">
         <Page :total="40" size="small" show-elevator show-sizer />
@@ -31,21 +31,17 @@ export default {
       loading: false,
       columns: [
         {
-          title: '文章标题',
-          key: 'founder'
+          title: '分类名称',
+          key: 'name'
         },
-        {
-          title: '所属分类',
-          key: 'classification'
-        },
-        {
-          title: '创建时间',
-          key: 'Creation_time'
-        },
-        {
-          title: '创建人',
-          key: 'user_name'
-        },
+        // {
+        //   title: '创建时间',
+        //   key: 'date'
+        // },
+        // {
+        //   title: '创建人',
+        //   key: 'address'
+        // },
         {
           title: 'Action',
           key: 'action',
@@ -89,24 +85,21 @@ export default {
           }
         }
       ],
-      articleLists: []
+      classlist: []
     }
   },
   methods: {
     getLists() {
       this.listLoading = true;
-      api.getArticleList()
-        .then(res => {
-          if (res.data.success) {
-            this.articleLists = res.data.result;
-          } else {
-            console.error(res);
-          }
-          this.listLoading = false;
+      api.getClassify()
+        .then(result => {
+          setTimeout(() => {
+            this.listLoading = false;
+            this.classlist = result.data.result;
+          }, 500);
         })
         .catch(err => {
           console.error(err)
-          this.listLoading = false;
         });
     },
   },
