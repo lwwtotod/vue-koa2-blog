@@ -52,7 +52,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'success',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
                   marginRight: '5px'
@@ -61,7 +62,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
                   marginRight: '5px'
@@ -70,7 +72,8 @@ export default {
               h('Button', {
                 props: {
                   type: 'error',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
                   marginRight: '5px'
@@ -90,11 +93,11 @@ export default {
   },
   methods: {
     getLists() {
-      this.listLoading = true;
+      this.loading = true;
       api.getClassify()
         .then(result => {
           setTimeout(() => {
-            this.listLoading = false;
+            this.loading = false;
             this.classlist = result.data.result;
           }, 500);
         })

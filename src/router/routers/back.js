@@ -24,7 +24,8 @@ export default [{
   {
     path: "articleEdit/:id",
     component: () =>
-      import ('@/components/admin/ArticleEdit'),
+      // import ('@/components/admin/ArticleEdit'),
+      import ('@/view/back-end/Main/Components/ArticleEdit'),
     hidden: true,
     name: "编辑文章"
   },

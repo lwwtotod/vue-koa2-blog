@@ -50,31 +50,47 @@ export default {
           title: 'Action',
           key: 'action',
           fixed: 'right',
-          width: 200,
+          width: 140,
           render: (h, params) => {
             return h('div', [
               h('Button', {
                 props: {
+                  icon:'md-eye',
                   type: 'success',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
-                  marginRight: '5px'
+                  marginRight: '10px'
                 },
-              }, 'View'),
+                on: {
+                  click: () => {
+                    this.$router.push({ path: `/article/${params.row.id}` });
+                  }
+                }
+              },),
               h('Button', {
                 props: {
+                  icon:'md-brush',
                   type: 'primary',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
-                  marginRight: '5px'
+                  marginRight: '10px'
                 },
-              }, 'Edit'),
+                on:{
+                  click: () => {
+                    this.$router.push({ path: `/admin/articleEdit/${params.row.id}` });
+                  }
+                }
+              }, ),
               h('Button', {
                 props: {
+                  icon:'md-close',
                   type: 'error',
-                  size: 'small'
+                  size: 'small',
+                  shape:'circle'
                 },
                 style: {
                   marginRight: '5px'
@@ -84,7 +100,7 @@ export default {
                     this.remove(params.index)
                   }
                 }
-              }, 'Delete')
+              }, )
             ]);
           }
         }
@@ -94,7 +110,7 @@ export default {
   },
   methods: {
     getLists() {
-      this.listLoading = true;
+      this.loading = true;
       api.getArticleList()
         .then(res => {
           if (res.data.success) {
@@ -102,11 +118,11 @@ export default {
           } else {
             console.error(res);
           }
-          this.listLoading = false;
+          this.loading = false;
         })
         .catch(err => {
           console.error(err)
-          this.listLoading = false;
+          this.loading = false;
         });
     },
   },

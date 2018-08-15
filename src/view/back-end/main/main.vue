@@ -19,7 +19,7 @@
               <Avatar>USER</Avatar>
               <div slot="content" class="content">
                 <span>编辑信息</span>
-                <span>账户注销</span>
+                <span @click="userLogout()">账户注销</span>
               </div>
             </Poptip>
 
@@ -48,6 +48,19 @@ export default {
   methods: {
     routerGo(item) {
       console.log(item, 111)
+    },
+    userLogout() {
+      this.$Modal.confirm({
+        title: '提示',
+        content: '<p>是否退出</p>',
+        onOk: () => {
+          // this.$Message.info('Clicked ok');
+          this.$store.dispatch("UserLogout");
+        },
+        onCancel: () => {
+          // this.$Message.info('Clicked cancel');
+        }
+      });
     }
   },
   created() {
