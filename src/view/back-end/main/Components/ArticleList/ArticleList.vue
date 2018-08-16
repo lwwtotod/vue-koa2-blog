@@ -6,7 +6,7 @@
         <BreadcrumbItem>Article</BreadcrumbItem>
         <BreadcrumbItem>Article List</BreadcrumbItem>
       </Breadcrumb>
-      <div>
+      <div style="height:26px;">
         <Tag v-for="item in classlist" :key="item.id" :color="item.color" :name="item.name">{{ item.name}}</Tag>
       </div>
       <Row>

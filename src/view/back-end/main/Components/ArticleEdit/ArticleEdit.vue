@@ -7,6 +7,7 @@
         <BreadcrumbItem>Article List</BreadcrumbItem>
       </Breadcrumb>
       <Form ref="article" :model="article" :rules="ruleInline">
+        
         <div class="main">
           <Row>
             <div class="main-title">
@@ -29,6 +30,7 @@
           </Row>
         </div>
         <FormItem prop="content">
+          <Spin size="large" fix v-if="spinShow"></Spin>
           <div class="main-split">
             <markdown-editor v-model="article.content" :value="article.content" :isNewContent="isNewContent" v-if="flag" />
           </div>
@@ -51,6 +53,7 @@ export default {
   },
   data() {
     return {
+      spinShow:true,
       flag: false,
       isNewContent: true,
       tabList: [], //分类列表
@@ -167,8 +170,12 @@ export default {
     if (this.$route.params.id) {
       this.isNewContent = false;
       this.getDetail();
+      setTimeout(()=>{
+        this.spinShow = false;
+      },500)
     } else {
       this.flag = true
+      this.spinShow = false;
     }
   }
 }
