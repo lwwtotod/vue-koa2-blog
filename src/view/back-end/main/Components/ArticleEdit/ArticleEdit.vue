@@ -1,23 +1,40 @@
 <template>
   <div>
-    <span>文章标题</span>
-    <Input v-model="article.founder" placeholder="Enter something..." style="width: 300px" />
-    <span>选择分类</span>
-    <Select v-model="article.classification" style="width:200px">
-      <Option v-for="item in tabList" :value="item.name" :key="item.id">{{ item.name }}</Option>
-    </Select>
-    <Button type="primary" shape="circle" icon="md-filing"></Button>
-    <div class="demo-split">
-      <markdown-editor v-model="article.content" :value="article.content" :isNewContent="isNewContent" v-if="flag" />
-      <!-- <Split v-model="split1">
-        <div slot="left" class="demo-split-pane">
-          <Input v-model="article.content" type="textarea" :rows="22" placeholder="Enter something..." />
+    <Content :style="{padding: '0 16px 16px'}">
+      <Breadcrumb :style="{margin: '16px 0'}">
+        <BreadcrumbItem>Home</BreadcrumbItem>
+        <BreadcrumbItem>Article</BreadcrumbItem>
+        <BreadcrumbItem>Article List</BreadcrumbItem>
+      </Breadcrumb>
+      <Form ref="article" :model="article" :rules="ruleInline">
+        <div class="main">
+          <Row>
+            <div class="main-title">
+              <Col span="7">
+              <FormItem label="标题" prop="founder">
+                <Input v-model="article.founder" placeholder="Enter something..." style="width: 300px" />
+              </FormItem>
+              </Col>
+              <Col span="15">
+              <FormItem label="分类" prop="classification">
+                <Select v-model="article.classification" style="width:200px">
+                  <Option v-for="item in tabList" :value="item.name" :key="item.id">{{ item.name }}</Option>
+                </Select>
+              </FormItem>
+              </Col>
+            </div>
+            <Col span="2">
+            <Button class="main-btn" type="primary" shape="circle" icon="md-filing" @click="saveArticle('article')">save</Button>
+            </Col>
+          </Row>
         </div>
-        <div slot="right" class="demo-split-pane">
-          <div class="markdown-view" v-html="markedToHtml"></div>
-        </div>
-      </Split> -->
-    </div>
+        <FormItem prop="content">
+          <div class="main-split">
+            <markdown-editor v-model="article.content" :value="article.content" :isNewContent="isNewContent" v-if="flag" />
+          </div>
+        </FormItem>
+      </Form>
+    </Content>
   </div>
 </template>
 
@@ -44,6 +61,17 @@ export default {
         founder: null, //文章标题
         content: "" //文章内容
       },
+      ruleInline: {
+        founder: [
+          { required: true, message: '请输入标题', trigger: 'blur' }
+        ],
+        classification: [
+          { required: true, message: '请选择分类.', trigger: 'change' },
+        ],
+        content: [
+          { required: true, message: '请选择分类.', trigger: 'blur' },
+        ]
+      }
     }
   },
   computed: {
@@ -70,14 +98,76 @@ export default {
         }
       });
     },
+    saveArticle(name) {
+      this.$refs[name].validate((valid) => {
+        if (valid) {
+          if (this.$route.params.id) {
+            this.editArticle()
+          } else {
+            this.createArticle()
+          }
+        } else {
+          this.$Message.error('你好像傻!');
+        }
+      })
+
+    },
+    createArticle() {
+      let params = {
+        user_id: this.userInfo.id,
+        user_name: this.userInfo.name,
+        classification: this.article.classification,
+        content: this.article.content,
+        founder: this.article.founder
+      };
+      api.createArticle(params)
+        .then(res => {
+          if (res.data.success) {
+            this.$Message.success('保存成功');
+          } else {
+            this.$Message.error('保存失败');
+          }
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          this.$Message.error('保存失败');
+          console.log(err);
+        });;
+    },
+    editArticle() {
+      api.editArticle(this.article)
+        .then(res => {
+          if (res.data.success) {
+            this.$Message.success('保存成功');
+          } else {
+            this.$Message.error('保存失败');
+          }
+          this.$router.go(-1);
+        })
+        .catch(err => {
+          this.$Message.error('保存失败');
+          console.log(err);
+        });
+    },
+    getUserInfo() {
+      const token = sessionStorage.getItem("jwt");
+      if (token !== null && token !== "null") {
+        let decode = jwt.decode(token);
+        return decode;
+      } else {
+        return null;
+      }
+    }
+  },
+  created() {
+    this.userInfo = this.getUserInfo();
   },
   mounted() {
     this.getClassList();
-
     if (this.$route.params.id) {
       this.isNewContent = false;
       this.getDetail();
-    }else{
+    } else {
       this.flag = true
     }
   }
@@ -85,11 +175,24 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-.demo-split {
+// .main {
+// display: flex;
+// margin: 5px;
+// justify-content: space-between;
+
+// .main-title {
+// margin-left: 10px;
+// }
+
+// .main-btn {
+// margin-right: 10px;
+// }
+// }
+.main-split {
   height: 500px;
   border: 1px solid #dcdee2;
 
-  .demo-split-pane {
+  .main-split-pane {
     padding: 10px;
 
     .markdown-view {

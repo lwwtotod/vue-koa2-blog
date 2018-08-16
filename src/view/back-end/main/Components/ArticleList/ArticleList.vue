@@ -6,6 +6,9 @@
         <BreadcrumbItem>Article</BreadcrumbItem>
         <BreadcrumbItem>Article List</BreadcrumbItem>
       </Breadcrumb>
+      <div>
+        <Tag v-for="item in classlist" :key="item.id" :color="item.color" :name="item.name">{{ item.name}}</Tag>
+      </div>
       <Row>
         <Col span="24">
         <div class="new-Article-Button">
@@ -28,6 +31,8 @@ import api from "@/api"
 export default {
   data() {
     return {
+      color: ["success", "primary", "error", "warning", "magenta", "red", "orange", "gold", "yellow", "cyan", "green", "blue", "geekblue"],
+      classlist: [],
       loading: false,
       columns: [
         {
@@ -55,10 +60,10 @@ export default {
             return h('div', [
               h('Button', {
                 props: {
-                  icon:'md-eye',
+                  icon: 'md-eye',
                   type: 'success',
                   size: 'small',
-                  shape:'circle'
+                  shape: 'circle'
                 },
                 style: {
                   marginRight: '10px'
@@ -68,18 +73,18 @@ export default {
                     this.$router.push({ path: `/article/${params.row.id}` });
                   }
                 }
-              },),
+              }, ),
               h('Button', {
                 props: {
-                  icon:'md-brush',
+                  icon: 'md-brush',
                   type: 'primary',
                   size: 'small',
-                  shape:'circle'
+                  shape: 'circle'
                 },
                 style: {
                   marginRight: '10px'
                 },
-                on:{
+                on: {
                   click: () => {
                     this.$router.push({ path: `/admin/articleEdit/${params.row.id}` });
                   }
@@ -87,17 +92,17 @@ export default {
               }, ),
               h('Button', {
                 props: {
-                  icon:'md-close',
+                  icon: 'md-close',
                   type: 'error',
                   size: 'small',
-                  shape:'circle'
+                  shape: 'circle'
                 },
                 style: {
                   marginRight: '5px'
                 },
                 on: {
                   click: () => {
-                    this.remove(params.index)
+                    this.delete(params.row.id)
                   }
                 }
               }, )
@@ -109,6 +114,29 @@ export default {
     }
   },
   methods: {
+    delete(id) {
+      console.log(id,111)
+      this.$Modal.confirm({
+        title: '提示',
+        content: '<p>是否删除</p>',
+        onOk: () => {
+          api.removeOneArticle({id}).then(res => {
+            if (res.data.success) {
+              this.$Message.success('删除成功');
+            } else {
+              this.$Message.error('删除失败');
+            }
+
+          }).catch(err => {
+            this.$Message.error('删除失败');
+          });
+          this.getLists();
+        },
+        onCancel: () => {
+          this.$Message.info('取消删除');
+        }
+      });
+    },
     getLists() {
       this.loading = true;
       api.getArticleList()
@@ -125,9 +153,27 @@ export default {
           this.loading = false;
         });
     },
+
+    getClassLists() {
+      this.loading = true;
+      api.getClassify()
+        .then(result => {
+          setTimeout(() => {
+            this.loading = false;
+            this.classlist = result.data.result;
+            this.classlist.map(item => {
+              item.color = this.color[parseInt(Math.random() * 10)]
+            })
+          }, 500);
+        })
+        .catch(err => {
+          console.error(err)
+        });
+    },
   },
   created() {
     this.getLists();
+    this.getClassLists();
   }
 }
 </script>

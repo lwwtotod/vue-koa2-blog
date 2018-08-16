@@ -25,7 +25,9 @@
 
           </div>
         </Header>
-        <router-view></router-view>
+        <!-- <keep-alive> -->
+          <router-view></router-view>
+        <!-- </keep-alive> -->
       </Layout>
     </Layout>
   </div>
