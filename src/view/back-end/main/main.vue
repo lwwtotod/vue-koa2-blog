@@ -4,8 +4,8 @@
     <Layout :style="{minHeight: '100vh'}">
       <Sider collapsible :collapsed-width="78" v-model="isCollapsed">
         <Menu active-name="1-2" theme="dark" width="auto" :class="menuitemClasses">
-          <MenuGroup :title="item.name" v-for="(item,index) in $router.options.routes" v-if='!item.hidden'>
-            <MenuItem :name="item.name" v-for="(item,index) in item.children" :index="index" v-if='!item.hidden' :to="item">
+          <MenuGroup :title="item.name" v-for="(item,index) in $router.options.routes" v-if='!item.hidden' :key="index">
+            <MenuItem :name="item.name" v-for="(item,index) in item.children" :index="index" :key="index" v-if='!item.hidden' :to="item">
             <Icon :type="item.icon"></Icon>
             <span>{{item.name}}</span>
             </MenuItem>

@@ -5,16 +5,17 @@
       <!-- <p>xxxxxxxxxxx</p> -->
       <!-- <p><a href="" target="_blank">Github</a></p> -->
       <h2>关于我</h2>
-      <p>王同学，程序员，就读于渤海大学，14年入学，主修计算机
-略宅…日常爱好刷FCC,刷推，看动漫，追美剧
-搭个博客记录一下学习前端的过程与踩过的坑
-</p>
+      <smile></smile>
     </div>
   </div>
 </template>
 
 <script>
+import smile from './../smail.vue'
 export default {
+  components:{
+    smile
+  },
   name: "About",
   data() {
     return {

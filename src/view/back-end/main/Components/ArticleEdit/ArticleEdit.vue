@@ -7,7 +7,6 @@
         <BreadcrumbItem>Article List</BreadcrumbItem>
       </Breadcrumb>
       <Form ref="article" :model="article" :rules="ruleInline">
-        
         <div class="main">
           <Row>
             <div class="main-title">
@@ -41,12 +40,9 @@
 </template>
 
 <script>
-import MarkdownEditor from '@/components/admin/markdown'
+import MarkdownEditor from '@/components//markdown'
 import jwt from "jsonwebtoken";
 import api from "@/api";
-import marked from "marked";
-import hlj from "highlight.js";
-import "highlight.js/styles/atom-one-dark.css";
 export default {
   components: {
     MarkdownEditor
@@ -57,7 +53,6 @@ export default {
       flag: false,
       isNewContent: true,
       tabList: [], //分类列表
-      // split1: 0.5,
       article: {
         id: null,
         classification: '', //文章所属分类
@@ -78,14 +73,6 @@ export default {
     }
   },
   computed: {
-    markedToHtml: function () {
-      marked.setOptions({
-        highlight: function (code) {
-          return hlj.highlightAuto(code).value;
-        }
-      });
-      return marked(this.article.content);
-    }
   },
   methods: {
     getClassList() {
@@ -182,19 +169,6 @@ export default {
 </script>
 
 <style scoped lang="stylus">
-// .main {
-// display: flex;
-// margin: 5px;
-// justify-content: space-between;
-
-// .main-title {
-// margin-left: 10px;
-// }
-
-// .main-btn {
-// margin-right: 10px;
-// }
-// }
 .main-split {
   height: 500px;
   border: 1px solid #dcdee2;
