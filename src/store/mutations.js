@@ -1,4 +1,4 @@
-import {USER_SIGNIN,USER_SIGNOUT,USER_REG,SHOW_PROGRESS,HEAD_LINE} from './mutationsType'
+import {USER_SIGNIN,USER_SIGNOUT,USER_REG,SHOW_PROGRESS,HEAD_LINE} from './mutations-type'
 export default  {
   [USER_REG](state,token){
     sessionStorage.setItem('jwt',token);
