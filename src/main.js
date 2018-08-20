@@ -4,8 +4,6 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import store from './store'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
 import nprogress from 'nprogress'
 import 'nprogress/nprogress.css'
 import './assets/css/commen.css'
@@ -13,7 +11,6 @@ import iView from 'iview'
 import iEditor from 'iview-editor'
 import 'iview/dist/styles/iview.css'
 import 'iview-editor/dist/iview-editor.css'
-import Axios from 'axios'
 
 Vue.config.productionTip = false
 

@@ -24,7 +24,7 @@ export default new VueRouter({
     {
       path: "/signup",
       component: () =>
-        import ('@/view/back-end/sign-up'),
+        import ('@/view/admin/sign-up'),
       meta: {
         auth: false
       },
@@ -34,7 +34,7 @@ export default new VueRouter({
     {
       path: "/login",
       component: () =>
-        import ('@/view/back-end/sign-in'),
+        import ('@/view/admin/sign-in'),
       hidden: true
     },
     {
@@ -49,17 +49,15 @@ export default new VueRouter({
       // 后台路由
       path: "/admin",
       component: () =>
-        // import ('@/components/admin/Admin'),
-        import ('@/view/back-end/Main'),
+        import ('@/view/admin/main'),
       name: "Home",
-      // iconCls: "el-icon-message",
       children: backRouter
 
     },
     {
       path: "*",
       component: () =>
-        import ('@/view/error-page/404.vue'),
+        import ('@/view/error/404.vue'),
       hidden: true
     }
   ],

@@ -1,5 +1,5 @@
-import api from './../api'
-import router from './../router'
+import api from '@/api'
+import router from '@/router'
 
 export default {
   // 后台注册
