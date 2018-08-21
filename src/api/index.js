@@ -2,7 +2,7 @@
 // 负责用instance和服务端进行交互
 
 import axios from 'axios';
-import store from '../vuex'
+import store from '@/store'
 const instance = axios.create({
   // baseURL: 'https://api.example.com',
 });

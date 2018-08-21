@@ -14,7 +14,7 @@ import 'iview-editor/dist/iview-editor.css'
 
 Vue.config.productionTip = false
 
-Vue.use(ElementUI)
+
 Vue.use(iView)
 Vue.use(iEditor);
 Vue.use(nprogress)

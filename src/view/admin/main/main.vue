@@ -22,7 +22,6 @@
                 <span @click="userLogout()">账户注销</span>
               </div>
             </Poptip>
-
           </div>
         </Header>
         <!-- <keep-alive> -->

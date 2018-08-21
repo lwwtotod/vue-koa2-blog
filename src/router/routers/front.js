@@ -2,7 +2,8 @@ export default [{
     path: "/",
     redirect: "home",
     component: () =>
-      import ("@/components/web/Home"),
+      // import ("@/components/web/Home"),
+      import ("@/components/home"),
     meta: {
       auth: false
     }
@@ -10,7 +11,8 @@ export default [{
   {
     path: "home",
     component: () =>
-      import ("@/components/web/Home"),
+      // import ("@/components/web/Home"),
+      import ("@/components/home"),
     meta: {
       auth: false
     }

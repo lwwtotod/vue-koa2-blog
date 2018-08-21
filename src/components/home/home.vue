@@ -1,6 +1,7 @@
 <template lang="html">
-      <div>
-        <article  class="home_wrapper">
+      <div class="home_wrapper">
+        <div >
+          <article  v-for='item in items'>
           <header>
             <div>
               <router-link :to="{path:`/article/${item.id}`}" class="home_title">
@@ -14,18 +15,19 @@
         <section v-html="item.contentToMark" class="home_main"></section>
         <footer>
             <router-link class="home_readMore" :to="{path:`/article/${item.id}`}">阅读全文>></router-link>
-         </footer>
+        </footer>
       </article>
-      <footer class='loadMore' v-if='loadMoreShow'><el-button type="primary" :loading="loadMoreFlag" @click='loadMore' >{{loadMoreText}}</el-button></footer>
+        </div>
+      <!-- <footer class='loadMore' v-if='loadMoreShow'><el-button type="primary" :loading="loadMoreFlag" @click='loadMore' >{{loadMoreText}}</el-button></footer> -->
     </div>
 </template>
 
 <script>
 import marked from 'marked'
 import hlj from 'highlight.js'
-import BaseFooter from './BaseFooter'
+// import BaseFooter from "./BaseFooter";
 import api from '../../api'
-import BaseHeader from './BaseHeader'
+// import BaseHeader from "./BaseHeader";
 export default {
   name: 'Home',
   data() {
@@ -47,8 +49,8 @@ export default {
     }
   },
   components: {
-    BaseHeader,
-    BaseFooter
+    // BaseHeader,
+    // BaseFooter
   },
   computed: {
     markedToHtml: function() {
@@ -93,13 +95,15 @@ h2, h4 {
 }
 
 .home_wrapper {
-  margin: auto;
+  margin: 3rem auto;
   list-style: none;
 
   article {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #d2d2d2;
+    padding: 1rem 3rem;
+    border: 1px solid #d2d2d2;
     margin-bottom: 2rem;
+    border-radius: 5rem;
+    background-color: #f3f3f3;
   }
 }
 

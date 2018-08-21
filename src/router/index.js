@@ -40,7 +40,8 @@ export default new VueRouter({
     {
       path: "/",
       component: () =>
-        import ('@/components/web/Front.vue'),
+        // import ('@/components/web/Front.vue'),
+        import ('@/view/blogs/main'),
       hidden: true,
       children: frontRouter
 
