@@ -5,25 +5,28 @@
 </template>
 
 <script>
-export default {};
+  export default {};
+
 </script>
 <style lang="stylus" scoped>
-footer {
-  height: 20rem;
-  text-align: center;
-  display: flex;
-  background-color: #000;
-
-  p {
-    margin: auto;
-    font-size: 1.4rem;
-    color: #3d3d3d;
-    padding: 1rem 1.5rem;
-  }
-}
-@media screen and (max-width: 768px) {
   footer {
-    height: 6rem;
+    height: 20rem;
+    text-align: center;
+    display: flex;
+    background-color: #e8eaec;
+
+    p {
+      margin: auto;
+      font-size: 1.4rem;
+      color: #3d3d3d;
+      padding: 1rem 1.5rem;
+    }
   }
-}
+
+  @media screen and (max-width: 768px) {
+    footer {
+      height: 6rem;
+    }
+  }
+
 </style>

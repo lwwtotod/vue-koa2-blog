@@ -1,4 +1,3 @@
-
 <template>
   <div class="layout">
     <Layout :style="{minHeight: '100vh'}">
@@ -25,111 +24,112 @@
           </div>
         </Header>
         <!-- <keep-alive> -->
-          <router-view></router-view>
+        <router-view></router-view>
         <!-- </keep-alive> -->
       </Layout>
     </Layout>
   </div>
 </template>
 <script>
-export default {
-  data() {
-    return {
-      isCollapsed: false
-    };
-  },
-  computed: {
-    menuitemClasses: function () {
-      return [
-        'menu-item',
-        this.isCollapsed ? 'collapsed-menu' : ''
-      ]
-    }
-  },
-  methods: {
-    routerGo(item) {
-      console.log(item, 111)
+  export default {
+    data() {
+      return {
+        isCollapsed: false
+      };
     },
-    userLogout() {
-      this.$Modal.confirm({
-        title: '提示',
-        content: '<p>是否退出</p>',
-        onOk: () => {
-          // this.$Message.info('Clicked ok');
-          this.$store.dispatch("UserLogout");
-        },
-        onCancel: () => {
-          // this.$Message.info('Clicked cancel');
-        }
-      });
-    }
-  },
-  created() {
-    console.log(this.$router.options);
+    computed: {
+      menuitemClasses: function () {
+        return [
+          'menu-item',
+          this.isCollapsed ? 'collapsed-menu' : ''
+        ]
+      }
+    },
+    methods: {
+      routerGo(item) {
+        console.log(item, 111)
+      },
+      userLogout() {
+        this.$Modal.confirm({
+          title: '提示',
+          content: '<p>是否退出</p>',
+          onOk: () => {
+            // this.$Message.info('Clicked ok');
+            this.$store.dispatch("UserLogout");
+          },
+          onCancel: () => {
+            // this.$Message.info('Clicked cancel');
+          }
+        });
+      }
+    },
+    created() {
+      console.log(this.$router.options);
 
+    }
   }
-}
+
 </script>
 <style scoped lang="stylus">
-
-.layout-con {
-  height: 100%;
-  width: 100%;
-}
-
-.menu-item {
-  span {
-    display: inline-block;
-    overflow: hidden;
-    width: 69px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: bottom;
-    transition: width 0.2s ease 0.2s;
+  .layout-con {
+    height: 100%;
+    width: 100%;
   }
 
-  i {
-    transform: translateX(0px);
-    transition: font-size 0.2s ease, transform 0.2s ease;
-    vertical-align: middle;
-    font-size: 16px;
-  }
-}
-
-.collapsed-menu {
-  span {
-    width: 0px;
-    transition: width 0.2s ease;
-  }
-
-  i {
-    transform: translateX(5px);
-    transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
-    vertical-align: middle;
-    font-size: 22px;
-  }
-}
-
-.user-avatar {
-  float: right;
-  margin-right: 20px;
-
-  .content {
+  .menu-item {
     span {
-      display: block;
-      font-size: 16px;
-      text-align: center;
-      margin: 4px auto;
+      display: inline-block;
+      overflow: hidden;
+      width: 69px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      vertical-align: bottom;
+      transition: width 0.2s ease 0.2s;
+    }
 
-      &:hover {
-        background: #e4e7ed;
-        cursor: pointer;
-      }
+    i {
+      transform: translateX(0px);
+      transition: font-size 0.2s ease, transform 0.2s ease;
+      vertical-align: middle;
+      font-size: 16px;
     }
   }
 
-  &:hover {
-    cursor: pointer;
+  .collapsed-menu {
+    span {
+      width: 0px;
+      transition: width 0.2s ease;
+    }
+
+    i {
+      transform: translateX(5px);
+      transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
+      vertical-align: middle;
+      font-size: 22px;
+    }
   }
-}
+
+  .user-avatar {
+    float: right;
+    margin-right: 20px;
+
+    .content {
+      span {
+        display: block;
+        font-size: 16px;
+        text-align: center;
+        margin: 4px auto;
+
+        &:hover {
+          background: #e4e7ed;
+          cursor: pointer;
+        }
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
 </style>

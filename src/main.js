@@ -11,13 +11,14 @@ import iView from 'iview'
 import iEditor from 'iview-editor'
 import 'iview/dist/styles/iview.css'
 import 'iview-editor/dist/iview-editor.css'
-
+import animate from "animate.css";
 Vue.config.productionTip = false
 
 
 Vue.use(iView)
-Vue.use(iEditor);
+Vue.use(iEditor)
 Vue.use(nprogress)
+Vue.use(animate)
 /* eslint-disable no-new */
 router.beforeEach(({
   meta,

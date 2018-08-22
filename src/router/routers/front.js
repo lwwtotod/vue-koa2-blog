@@ -22,7 +22,7 @@ export default [{
     // component: About,
     component: () =>
       import ("@/components/web/About"),
-      // import ("@/components/cat"),
+    // import ("@/components/cat"),
     meta: {
       auth: false
     }
