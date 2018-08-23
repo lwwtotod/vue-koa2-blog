@@ -21,7 +21,7 @@ export default [{
     path: "about",
     // component: About,
     component: () =>
-      import ("@/components/web/About"),
+      import ("@/components/About"),
     // import ("@/components/cat"),
     meta: {
       auth: false
@@ -31,7 +31,7 @@ export default [{
     path: "tags",
     // component: Tags,
     component: () =>
-      import ("@/components/web/Tags"),
+      import ("@/components/tags"),
     meta: {
       auth: false
     }

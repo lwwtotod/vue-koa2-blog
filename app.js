@@ -6,7 +6,6 @@ import koaRouter from 'koa-router'
 import koaBodyparser from 'koa-bodyparser'
 import auth from './server/routes/auth.js'
 import api from './server/routes/api.js'
-import path from 'path'
 import jwt from 'koa-jwt'
 
 const app = new Koa()

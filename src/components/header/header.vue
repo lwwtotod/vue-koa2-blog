@@ -4,7 +4,7 @@
       <div class="title" @click="routeJump()">
         记录
       </div>
-      <Dropdown @on-click="routeJump">
+      <Dropdown @on-click="routeJump" trigger="click">
         <i-button type="text" style="margin-top: 3rem">
           <Icon type="md-funnel" size="30" />
         </i-button>
