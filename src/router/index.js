@@ -1,7 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import frontRouter from "./routers/front"
-import backRouter from './routers/back'
 
 Vue.use(VueRouter);
 
@@ -20,7 +19,7 @@ const scrollBehavior = (to, from, savedPosition) => {
 export default new VueRouter({
   mode: "history", //HTML5 History 模式
   routes: [
-    // 注册
+    // Admin signIn
     {
       path: "/signup",
       component: () =>
@@ -30,7 +29,7 @@ export default new VueRouter({
       },
       hidden: true
     },
-    // 登录 
+    // Admin login
     {
       path: "/login",
       component: () =>
@@ -38,22 +37,92 @@ export default new VueRouter({
       hidden: true
     },
     {
-      path: "/",
-      component: () =>
-        // import ('@/components/web/Front.vue'),
-        import ('@/view/blogs/main'),
-      hidden: true,
-      children: frontRouter
-
-    },
-    {
-      // 后台路由
+      // Admin pages
       path: "/admin",
       component: () =>
         import ('@/view/admin/main'),
       name: "Home",
-      children: backRouter
-
+      children: [{
+          path: "",
+          hidden: true,
+          redirect: {
+            name: "文章管理"
+          }
+        },
+        {
+          path: "articleList",
+          component: () =>
+            import ('@/view/admin/main/components/ArticleList'),
+          name: "文章管理",
+          icon: "ios-albums-outline"
+        },
+        {
+          path: "articleCreate",
+          component: () =>
+            import ('@/view/admin/main/components/ArticleEdit'),
+          name: "创建文章",
+          hidden: true
+        },
+        {
+          path: "articleEdit/:id",
+          component: () =>
+            import ('@/view/admin/main/components/ArticleEdit'),
+          hidden: true,
+          name: "编辑文章"
+        },
+        {
+          path: "classList",
+          component: () =>
+            import ('@/view/admin/main/components/ClassList'),
+          name: "分类管理",
+          icon: "ios-albums-outline"
+        }
+      ]
+    },
+    //blogs pages
+    {
+      path: "/",
+      component: () =>
+        import ('@/view/blogs/main'),
+      hidden: true,
+      children: [{
+          path: "/",
+          redirect: "home",
+        },
+        {
+          path: "home",
+          component: () =>
+            import ("@/components/home"),
+          meta: {
+            auth: false
+          }
+        },
+        {
+          path: "about",
+          component: () =>
+            import ("@/components/About"),
+          meta: {
+            auth: false
+          }
+        },
+        {
+          path: "tags",
+          component: () =>
+            import ("@/components/tags"),
+          meta: {
+            auth: false
+          }
+        },
+        {
+          path: "article/:id",
+          component: () =>
+            import ("@/components/web/Article"),
+          meta: {
+            auth: false,
+            scrollToTop: true
+          }
+        }
+      ]
     },
     {
       path: "*",

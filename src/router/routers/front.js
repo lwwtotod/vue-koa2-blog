@@ -2,7 +2,6 @@ export default [{
     path: "/",
     redirect: "home",
     component: () =>
-      // import ("@/components/web/Home"),
       import ("@/components/home"),
     meta: {
       auth: false
@@ -11,7 +10,6 @@ export default [{
   {
     path: "home",
     component: () =>
-      // import ("@/components/web/Home"),
       import ("@/components/home"),
     meta: {
       auth: false
@@ -19,17 +17,14 @@ export default [{
   },
   {
     path: "about",
-    // component: About,
     component: () =>
       import ("@/components/About"),
-    // import ("@/components/cat"),
     meta: {
       auth: false
     }
   },
   {
     path: "tags",
-    // component: Tags,
     component: () =>
       import ("@/components/tags"),
     meta: {
@@ -38,7 +33,6 @@ export default [{
   },
   {
     path: "article/:id",
-    // component: Article,
     component: () =>
       import ("@/components/web/Article"),
     meta: {
