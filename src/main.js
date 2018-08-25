@@ -11,23 +11,17 @@ import iView from 'iview'
 import iEditor from 'iview-editor'
 import 'iview/dist/styles/iview.css'
 import 'iview-editor/dist/iview-editor.css'
-import animate from "animate.css";
+import animate from 'animate.css'
 Vue.config.productionTip = false
-
 
 Vue.use(iView)
 Vue.use(iEditor)
 Vue.use(nprogress)
 Vue.use(animate)
 /* eslint-disable no-new */
-router.beforeEach(({
-  meta,
-  path
-}, from, next) => {
+router.beforeEach(({ meta, path }, from, next) => {
   store.dispatch('showProgress', 0)
-  let {
-    auth = true
-  } = meta
+  let { auth = true } = meta
   let isLogin = Boolean(store.state.token)
   /*
       访问不需要权限的设置meta:false
@@ -42,10 +36,10 @@ router.beforeEach(({
   if (isLogin && (path == '/login' || path == '/reg')) {
     return next({
       path: '/admin'
-    });
+    })
   }
   // 未登录的情况下访问reg则直接路由
-  next();
+  next()
 })
 
 new Vue({

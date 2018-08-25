@@ -1,6 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import frontRouter from "./routers/front"
 
 Vue.use(VueRouter);
 
@@ -17,7 +16,8 @@ const scrollBehavior = (to, from, savedPosition) => {
 };
 
 export default new VueRouter({
-  mode: "history", //HTML5 History 模式
+  //HTML5 History 模式
+  mode: "history", 
   routes: [
     // Admin signIn
     {
@@ -116,7 +116,7 @@ export default new VueRouter({
         {
           path: "article/:id",
           component: () =>
-            import ("@/components/web/Article"),
+            import ("@/components/Article"),
           meta: {
             auth: false,
             scrollToTop: true
