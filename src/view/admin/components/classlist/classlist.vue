@@ -9,25 +9,38 @@
       <Row>
         <Col span="24">
         <div class="new-Article-Button">
-          <Button type="primary" shape="circle" icon="md-add" @click="update()"></Button>
+          <Button type="primary"
+                  shape="circle"
+                  icon="md-add"
+                  @click="update()"></Button>
         </div>
         </Col>
       </Row>
       <div>
-        <Modal v-model="addModel" :title="formTitle" @on-ok="ok" @on-cancel="cancel">
-          <Input v-model="classifyInf.classify" placeholder="Enter something..." style="width: 300px" />
+        <Modal v-model="addModel"
+               :title="formTitle"
+               @on-ok="ok"
+               @on-cancel="cancel">
+          <Input v-model="classifyInf.classify"
+                 placeholder="Enter something..."
+                 style="width: 300px" />
         </Modal>
-        <Table :loading="loading" :columns="columns" :data="classlist"></Table>
+        <Table :loading="loading"
+               :columns="columns"
+               :data="classlist"></Table>
       </div>
       <div class="page-paging">
-        <Page :total="40" size="small" show-elevator show-sizer />
+        <Page :total="40"
+              size="small"
+              show-elevator
+              show-sizer />
       </div>
     </Content>
   </div>
 </template>
 
 <script>
-import api from "@/api"
+import api from '@/api'
 export default {
   data() {
     return {
@@ -37,7 +50,7 @@ export default {
       loading: false,
       classifyInf: {
         id: 0,
-        classify: ""
+        classify: ''
       },
       columns: [
         {
@@ -53,17 +66,21 @@ export default {
                   width: '300px'
                 },
                 on: {
-                  inpue: (val) => {
+                  inpue: val => {
                     params.row.name = val
                   }
                 }
-              });
+              })
             } else {
-              return h('span', {
-                style: {
-                  width: '300px'
+              return h(
+                'span',
+                {
+                  style: {
+                    width: '300px'
+                  }
                 },
-              }, params.row.name);
+                params.row.name
+              )
             }
           }
         },
@@ -86,10 +103,10 @@ export default {
                 },
                 on: {
                   click: () => {
-                    this.update(params);
+                    this.update(params)
                   }
                 }
-              }, ),
+              }),
               h('Button', {
                 props: {
                   icon: 'md-close',
@@ -102,8 +119,8 @@ export default {
                     this.remove(params)
                   }
                 }
-              }, )
-            ]);
+              })
+            ])
           }
         }
       ],
@@ -112,27 +129,28 @@ export default {
   },
   methods: {
     getLists() {
-      this.loading = true;
-      api.getClassify()
+      this.loading = true
+      api
+        .getClassify()
         .then(result => {
           setTimeout(() => {
-            this.loading = false;
-            this.classlist = result.data.result;
-          }, 500);
+            this.loading = false
+            this.classlist = result.data.result
+          }, 500)
         })
         .catch(err => {
           console.error(err)
-        });
+        })
     },
     update(params) {
-      this.addModel = true;
+      this.addModel = true
       if (!params) {
         this.classifyInf.classify = ''
         this.formTitle = '新增分类'
       } else {
         this.formTitle = '编辑分类'
-        this.classifyInf.classify = params.row.name;
-        this.classifyInf.id = params.row.id;
+        this.classifyInf.classify = params.row.name
+        this.classifyInf.id = params.row.id
       }
     },
     ok() {
@@ -143,14 +161,15 @@ export default {
           })
           .then(res => {
             if (res.data.success) {
-              this.$Message.success('新增分类成功');
+              this.$Message.success('新增分类成功')
             } else {
-              this.$Message.error('新增分类失败了');
+              this.$Message.error('新增分类失败了')
             }
-            this.getLists();
-          }).catch(err => {
-            this.$Message.error('新增分类失败了');
-          });
+            this.getLists()
+          })
+          .catch(err => {
+            this.$Message.error('新增分类失败了')
+          })
       } else {
         api
           .editClassfy({
@@ -159,37 +178,38 @@ export default {
           })
           .then(res => {
             if (res.data.success) {
-              this.$Message.success('编辑分类成功');
+              this.$Message.success('编辑分类成功')
             } else {
-              this.$Message.error('编辑分类失败了');
+              this.$Message.error('编辑分类失败了')
             }
-            this.getLists();
-          }).catch(err => {
-            this.$Message.error('编辑分类失败了');
-          });
+            this.getLists()
+          })
+          .catch(err => {
+            this.$Message.error('编辑分类失败了')
+          })
       }
     },
     cancel() {
-      this.$Message.info('取消添加');
+      this.$Message.info('取消添加')
     },
     remove(params) {
       api
         .removeClassifyList({ id: params.row.id })
         .then(res => {
           if (res.data.success) {
-            this.$Message.success('删除分类成功');
+            this.$Message.success('删除分类成功')
           } else {
-            this.$Message.error('删除分类失败');
+            this.$Message.error('删除分类失败')
           }
-          this.getLists();
+          this.getLists()
         })
         .catch(err => {
           // 这里可以跳转到错误页面
-        });
+        })
     }
   },
   created() {
-    this.getLists();
+    this.getLists()
   }
 }
 </script>

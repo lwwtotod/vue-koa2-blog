@@ -17,13 +17,13 @@ const scrollBehavior = (to, from, savedPosition) => {
 
 export default new VueRouter({
   //HTML5 History 模式
-  mode: "history", 
+  mode: "history",
   routes: [
     // Admin signIn
     {
       path: "/signup",
       component: () =>
-        import ('@/view/admin/sign-up'),
+        import ('@/view/admin/components/sign-up'),
       meta: {
         auth: false
       },
@@ -33,14 +33,14 @@ export default new VueRouter({
     {
       path: "/login",
       component: () =>
-        import ('@/view/admin/sign-in'),
+        import ('@/view/admin/components/sign-in'),
       hidden: true
     },
     {
       // Admin pages
       path: "/admin",
       component: () =>
-        import ('@/view/admin/main'),
+        import ('@/view/admin'),
       name: "Home",
       children: [{
           path: "",
@@ -52,28 +52,28 @@ export default new VueRouter({
         {
           path: "articleList",
           component: () =>
-            import ('@/view/admin/main/components/ArticleList'),
+            import ('@/view/admin/components/ArticleList'),
           name: "文章管理",
           icon: "ios-albums-outline"
         },
         {
           path: "articleCreate",
           component: () =>
-            import ('@/view/admin/main/components/ArticleEdit'),
+            import ('@/view/admin/components/ArticleEdit'),
           name: "创建文章",
           hidden: true
         },
         {
           path: "articleEdit/:id",
           component: () =>
-            import ('@/view/admin/main/components/ArticleEdit'),
+            import ('@/view/admin/components/ArticleEdit'),
           hidden: true,
           name: "编辑文章"
         },
         {
           path: "classList",
           component: () =>
-            import ('@/view/admin/main/components/ClassList'),
+            import ('@/view/admin/components/ClassList'),
           name: "分类管理",
           icon: "ios-albums-outline"
         }
