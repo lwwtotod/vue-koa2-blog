@@ -4,7 +4,7 @@
           <header>
             <div>
               <router-link :to="{path:`/article/${item.id}`}" class="home_title">
-              {{item.founder}}
+              {{item.title}}
             </router-link>
           </div>
           <div>
@@ -33,7 +33,7 @@ export default {
       items: [
         {
           id: null,
-          founder: null,
+          title: null,
           classification: null,
           content: null
         }

@@ -27,7 +27,7 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.DATE,
       allowNull: false
     },
-    founder: {
+    title: {
       type: DataTypes.CHAR(50),
       allowNull: false
     }

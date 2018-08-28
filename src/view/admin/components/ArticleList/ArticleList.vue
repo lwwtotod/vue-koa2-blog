@@ -62,7 +62,7 @@ export default {
       columns: [
         {
           title: '文章标题',
-          key: 'founder'
+          key: 'title'
         },
         {
           title: '所属分类',

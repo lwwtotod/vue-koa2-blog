@@ -28,6 +28,16 @@ const getArticleById = async function (ctx) {
     const result = await articlelist.getArticle(id) // 通过await “同步”地返回查询结果
     ctx.body = result // 将请求的结果放到response的body里返回
 }
+
+const getArticleByTag = async function (ctx) {
+  console.log('====================================');
+  console.log(ctx.request.body);
+  console.log('====================================');
+  const tag = ctx.request.body.tag
+  const result = await articlelist.getArticleByTags(tag) // 通过await “同步”地返回查询结果
+  ctx.body = result // 将请求的结果放到response的body里返回
+}
+
 const updateArticleById = async function (ctx) {
   const data = ctx.request.body
   const success = await articlelist.updateArticle(data)
@@ -41,5 +51,6 @@ export default {
     createArticleById,
     removeArticleById,
     getArticleById,
-    updateArticleById
+    updateArticleById,
+    getArticleByTag
 }

@@ -43,6 +43,9 @@ export default {
   getArticleList() {
     return instance.get('/auth/article/lists');
   },
+  getArticleListByTag(params) {
+    return instance.post('/auth/article/getListByTag',params);
+  },
   // // 不带分页获取文章
   // getArticleLists(params) {
   //   return front_instance.post('/api/article/articleLists', params);

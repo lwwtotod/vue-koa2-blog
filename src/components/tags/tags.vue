@@ -2,7 +2,7 @@
   <div class="tags_wrap">
     <transition-group enter-active-class="animated shake" tag="ul" class="tags_list">
       <li v-for='(item,index) in items' :key="index">
-        <a class="tag_btn" :to="`/tags/${item.id}`" @click.prevent="gets(index,item.name)" :class="{'active':index==selected}">{{item.name}}</a>
+        <a class="tag_btn" :to="`/tags/${item.id}`" @click.prevent="getArticleListByTag(item.name)" :class="{'active':index==selected}">{{item.name}}</a>
       </li>
     </transition-group>
     <transition-group enter-active-class="animated lightSpeedIn">
@@ -38,7 +38,7 @@
         //标签列表
         articleLists: [{
           id: null,
-          founder: null,
+          title: null,
           classification: null,
           content: ''
         }],
@@ -53,141 +53,145 @@
       markedToHtml(md) {
         return marked(md.slice(0, 100))
       },
-      getPage() {
-        api.getClassify().then(result => {
+      getClassify() {
+        api.getClassify().then(res => {
           setTimeout(() => {
-            this.items = result.data.result;
+            this.items = res.data.result;
           }, 500);
         });
-      }
-    },
-    mounted() {
-      this.getPage();
-      api.getArticleList().then(res => {
+      },
+      getArticleListByTag(tag){
+        api.getArticleListByTag({tag:tag}).then(res => {
+          this.articleLists = res.data
+        })
+      },
+      getArticleList(){
+        api.getArticleList().then(res => {
         if (res.data.success) {
           this.articleLists = res.data.result;
         } else {
           console.error(res);
         }
       });
+      }
+    },
+    mounted() {
+      this.getClassify();
+      this.getArticleList();
     }
   };
 
 </script>
 
 <style lang="stylus" scoped>
-  h2,
-  h4 {
-    margin: 0;
-  }
+h2, h4 {
+  margin: 0;
+}
 
-  p,
-  .tags_main p {
-    margin: 0;
-  }
+p, .tags_main p {
+  margin: 0;
+}
 
-  .tags_list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
+.tags_list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
 
-    li {
-      margin: 0.4rem;
+  li {
+    margin: 0.4rem;
 
-      a {
-        display: block;
-        padding: 0.6rem 1.6rem;
-        border: 1px solid #d2d2d2;
-        border-radius: 0.6rem;
-        color: rgba(0, 0, 0, 0.8);
-        font-size: 1.8rem;
-        background-color: #f7f7f7;
-        transition: all 0.4s;
-        cursor: pointer;
-      }
+    a {
+      display: block;
+      padding: 0.6rem 1.6rem;
+      border: 1px solid #d2d2d2;
+      border-radius: 0.6rem;
+      color: rgba(0, 0, 0, 0.8);
+      font-size: 1.8rem;
+      background-color: #f7f7f7;
+      transition: all 0.4s;
+      cursor: pointer;
     }
   }
+}
 
-  .tags_list li a:hover,
-  .tags_list li .active {
-    background-color: #555555;
-    color: #fff;
+.tags_list li a:hover, .tags_list li .active {
+  background-color: #555555;
+  color: #fff;
+}
+
+.tags_wrap {
+  min-height: 500px;
+  margin: auto;
+  list-style: none;
+
+  article {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #d2d2d2;
   }
+}
 
-  .tags_wrap {
-    min-height 500px;
-    margin: auto;
-    list-style: none;
+.tags_title {
+  display: block;
+  font-size: 3rem;
+  font-weight: 400;
+  color: #404040;
+  padding: 1rem 0;
+}
 
-    article {
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #d2d2d2;
-    }
-  }
+.tags_creatAt {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; // 限制快级元素的文本行数
+  overflow: hidden;
+  font-family: 'Comic Sans MS', curslve, sans-serif; // padding: 0.6rem 0;
+  font-size: 1.8rem;
+  color: #7f8c8d;
+}
 
+.tags_main {
+  font-size: 1.6rem;
+  color: #34495e;
+  line-height: 1.6em;
+  padding: 1rem 0;
+}
+
+footer {
+  text-align: right;
+}
+
+.tags_readMore {
+  font-size: 2rem;
+  color: #919191;
+  font-weight: 600;
+}
+
+@media screen and (max-width: 786px) {
   .tags_title {
-    display: block;
-    font-size: 3rem;
-    font-weight: 400;
-    color: #404040;
-    padding: 1rem 0;
+    font-size: 2.4rem;
   }
 
   .tags_creatAt {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4; // 限制快级元素的文本行数
-    overflow: hidden;
-    font-family: 'Comic Sans MS', curslve, sans-serif; // padding: 0.6rem 0;
-    font-size: 1.8rem;
-    color: #7f8c8d;
-  }
-
-  .tags_main {
     font-size: 1.6rem;
-    color: #34495e;
-    line-height: 1.6em;
-    padding: 1rem 0;
   }
 
-  footer {
-    text-align: right;
+  .tags_list li {
+    margin: 0.2rem;
+  }
+
+  .tags_list li a {
+    font-size: 1.4rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .tags_main {
+    font-size: 1.4rem;
   }
 
   .tags_readMore {
-    font-size: 2rem;
-    color: #919191;
-    font-weight: 600;
+    font-size: 1.8rem;
   }
-
-  @media screen and (max-width: 786px) {
-    .tags_title {
-      font-size: 2.4rem;
-    }
-
-    .tags_creatAt {
-      font-size: 1.6rem;
-    }
-
-    .tags_list li {
-      margin: 0.2rem;
-    }
-
-    .tags_list li a {
-      font-size: 1.4rem;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    .tags_main {
-      font-size: 1.4rem;
-    }
-
-    .tags_readMore {
-      font-size: 1.8rem;
-    }
-  }
-
+}
 </style>

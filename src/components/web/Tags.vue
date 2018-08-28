@@ -11,7 +11,7 @@
         <header>
           <div>
             <router-link :to="{path:`/article/${item.id}`}" class="tags_title" >
-            {{item.founder}}
+            {{item.title}}
           </router-link>
         </div>
         <div>

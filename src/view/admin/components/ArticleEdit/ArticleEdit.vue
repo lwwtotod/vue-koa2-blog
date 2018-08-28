@@ -14,8 +14,8 @@
             <div class="main-title">
               <Col span="7">
               <FormItem label="标题"
-                        prop="founder">
-                <Input v-model="article.founder"
+                        prop="title">
+                <Input v-model="article.title"
                        placeholder="Enter something..."
                        style="width: 300px" />
               </FormItem>
@@ -74,11 +74,11 @@ export default {
       article: {
         id: null,
         classification: '', //文章所属分类
-        founder: null, //文章标题
+        title: null, //文章标题
         content: '' //文章内容
       },
       ruleInline: {
-        founder: [
+        title: [
           {
             required: true,
             message: '请输入标题',
@@ -140,7 +140,7 @@ export default {
         user_name: this.userInfo.name,
         classification: this.article.classification,
         content: this.article.content,
-        founder: this.article.founder
+        title: this.article.title
       }
       api
         .createArticle(params)

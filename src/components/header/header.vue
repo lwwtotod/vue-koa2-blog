@@ -1,12 +1,16 @@
 <template>
   <header>
     <div class="header-bg">
-      <div class="title" @click="routeJump()">
+      <div class="title"
+           @click="routeJump()">
         记录
       </div>
-      <Dropdown @on-click="routeJump" trigger="click">
-        <i-button type="text" style="margin-top: 3rem">
-          <Icon type="md-funnel" size="30" />
+      <Dropdown @on-click="routeJump"
+                trigger="click">
+        <i-button type="text"
+                  style="margin-top: 3rem">
+          <Icon type="md-funnel"
+                size="30" />
         </i-button>
         <Dropdown-menu slot="list">
           <Dropdown-item name="home">home</Dropdown-item>
@@ -54,33 +58,32 @@
 </script>
 
 <style lang="stylus" scoped>
-  header {
-    height: 10rem;
-    display: flex;
-    flex-direction: column;
-    border-radius: 25px;
-  }
+header {
+  height: 10rem;
+  display: flex;
+  flex-direction: column;
+  border-radius: 25px;
+}
 
-  .header-bg {
-    display: flex; // justify-content:center;
-    // align-items:center;
-    position: fixed;
-    height: 10rem;
-    width: 100%;
-    left: 0;
-    top: 0;
-    background-color: #fff;
-    box-shadow: 0px 1px 40px #888;
-  }
+.header-bg {
+  display: flex; // justify-content:center;
+  // align-items:center;
+  position: fixed;
+  height: 10rem;
+  width: 100%;
+  left: 0;
+  top: 0;
+  background-color: #fff;
+  box-shadow: 0px 1px 40px #888;
+}
 
-  .title {
-    display: inline-block;
-    width: 20rem;
-    background-color: #d6d6d6;
-    height: 10rem;
-    color: #000;
-    font-size: 50px;
-    cursor: pointer;
-  }
-
+.title {
+  display: inline-block;
+  width: 20rem;
+  background-color: #d6d6d6;
+  height: 10rem;
+  color: #000;
+  font-size: 50px;
+  cursor: pointer;
+}
 </style>

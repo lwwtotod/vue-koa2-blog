@@ -1,7 +1,7 @@
 <template lang="html">
   <article v-loading="loading"  element-loading-text="加载中" class="article_wrap article">
     <header>
-      <div class="home_title">{{oneArticle.founder}}</div>
+      <div class="home_title">{{oneArticle.title}}</div>
     <div>
       <p class="home_creatAt" v-html="markedToHtml"></p>
     </div>

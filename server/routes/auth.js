@@ -8,7 +8,7 @@ const router = koaRouter()
 router.get('/getTabsList', tabs.getTabslist)
 router.get('/article/lists', article.getArticlelistAll)
 router.post('/article/onePage', article.getArticleById)
-
+router.post('/article/getListByTag', article.getArticleByTag)
 
 router.post('/userLogin', auth.postUserLogin)
 router.post('/userReg', auth.postUserReg)
