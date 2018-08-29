@@ -16,10 +16,10 @@ const getUserById = async function (id) { // 注意是async function 而不是fu
   return userInfo // 返回数据
 }
 
-const getUserByName = async function (name) {
+const getUserByName = async function (username) {
   const userInfo = await User.findOne({
     where: {
-      user_name: name
+      user_name: username
     }
   })
   return userInfo

@@ -1,12 +1,16 @@
-<template lang="html">
+<template>
   <div class="home_wrapper">
     <transition-group enter-active-class="animated lightSpeedIn">
-      <article v-for='item in items' :key="item.id">
+      <article v-for='item in items'
+               :key="item.id">
         <header>
-          <p class="home_creatAt" v-html="markedToHtml(item.content)" @click="routrJump(item.id)"></p>
+          <p class="home_creatAt"
+             v-html="markedToHtml(item.content)"
+             @click="routrJump(item.id)"></p>
         </header>
         <footer>
-          <router-link class="home_readMore" :to="{path:`/article/${item.id}`}">阅读全文</router-link>
+          <router-link class="home_readMore"
+                       :to="{path:`/article/${item.id}`}">阅读全文</router-link>
         </footer>
       </article>
     </transition-group>
@@ -15,7 +19,6 @@
 
 <script>
   import marked from 'marked'
-  import hlj from 'highlight.js'
   import api from '@/api'
   export default {
     name: 'Home',
@@ -50,7 +53,7 @@
       },
       loadData() {
         api.getArticleList().then(res => {
-          if (res.data.success) {
+              if (res.data.success) {
             for (let i = 0; i < res.data.result.length; i++) {
               this.items.push(res.data.result[i])
             }

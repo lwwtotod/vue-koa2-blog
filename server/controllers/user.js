@@ -9,9 +9,10 @@ const getUserInfo = async function (ctx) {
 }
 
 const postUserLogin = async function (ctx) {
-  console.log(ctx,`1111`)
   const data = ctx.request.body // post过来的数据存在request.body里
-  const userInfo = await user.getUserByName(data.name)
+  console.log(ctx.request.body)
+  const userInfo = await user.getUserByName(data.username)
+  console.log(userInfo)
   if (userInfo != null) { // 如果查无此用户会返回null
     if (!bcrypt.compareSync(data.password, userInfo.password)) {
       ctx.body = {
@@ -33,7 +34,7 @@ const postUserLogin = async function (ctx) {
   } else {
     ctx.body = {
       success: false,
-      info: '用户不存在！' // 如果用户不存在返回用户不存在
+      info: '用户不存在' // 如果用户不存在返回用户不存在
     }
   }
 }

@@ -31,49 +31,6 @@ a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
-/*登录注册通用样式*/
-
-.container {
-  margin: 0;
-  background: url('../img/bg.jpg') no-repeat center;
-  background-size: cover;
-  min-width: 680px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.title {
-  text-align: center;
-  margin: 0px auto 40px auto;
-  text-align: center;
-  color: #505458;
-}
-
-.login_form,
-.reg_form {
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  background-color: #F9FAFC;
-  margin: 150px auto 20px auto;
-  border: 2px solid #8492A6;
-  width: 350px;
-  padding: 35px 35px 15px 35px;
-  opacity: 1;
-}
-
-.reg_button,
-.login_button {
-  margin-top: 20px;
-}
-
-pre {
-  /*white-space: pre-wrap;*/
-}
-
 code {
   color: #657b83;
   background: #f6f6f6;

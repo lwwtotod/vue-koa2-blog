@@ -1,86 +1,122 @@
 <template>
   <div class="container">
-    <el-form class="reg_form"
-             :model="user"
-             :rules="rules2"
-             ref="user"
-             label-position="left"
-             label-width="0px">
-      <h3 class="title">系统注册</h3>
-      <el-form-item prop="account">
-        <el-input type="text"
-                  v-model="user.account"
-                  auto-complete="off"
-                  placeholder="账号"></el-input>
-      </el-form-item>
-      <el-form-item prop="checkPass">
-        <el-input type="password"
-                  v-model="user.checkPass"
-                  auto-complete="off"
-                  placeholder="密码"></el-input>
-      </el-form-item>
-      <el-form-item prop="checkRepeatPass">
-        <el-input type="password"
-                  v-model="user.checkRepeatPass"
-                  auto-complete="off"
-                  placeholder="重复输入密码"></el-input>
-      </el-form-item>
-      <el-form-item style="width:100%;">
-        <el-button class='reg_button'
-                   type="primary"
-                   style="width:40%;"
-                   @click="handleSubmit">注册</el-button>
-        <el-button class='login_button'
-                   type="primary"
-                   style="width:40%;"
-                   @click="toLogin">登录</el-button>
-      </el-form-item>
-    </el-form>
+    <Form ref="user"
+          class="login-form"
+          :model="user"
+          :rules="ruleInline"
+          inline>
+      <h2 class="title">
+        注册
+      </h2>
+      <FormItem prop="username">
+        <Input type="text"
+               v-model="user.username"
+               placeholder="username">
+        <Icon type="ios-person-outline"
+              slot="prepend"></Icon>
+        </Input>
+      </FormItem>
+      <FormItem prop="password">
+        <Input type="password"
+               v-model="user.password"
+               placeholder="Password">
+        <Icon type="ios-lock-outline"
+              slot="prepend"></Icon>
+        </Input>
+      </FormItem>
+      <FormItem prop="passwordAgain">
+        <Input type="password"
+               v-model="user.passwordAgain"
+               placeholder="Enter password again">
+        <Icon type="ios-lock-outline"
+              slot="prepend"></Icon>
+        </Input>
+      </FormItem>
+      <FormItem class="form-botton">
+        <Button type="primary"
+                class='login-button'
+                @click="toLogin()">登陆</Button>
+        <Button type="primary"
+                class='reg-button'
+                @click="singUp()">注册</Button>
+      </FormItem>
+    </Form>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { USER_REG } from '@/store/mutations-type'
+import { mapActions, mapMutations } from 'vuex'
 export default {
   data() {
-    //自定义验证函数
-    var checkRepeatPass = (rule, value, callback) => {
-      if (value == '') {
-        return callback(new Error('请再次输入密码'))
-      } else if (value !== this.user.checkPass) {
-        return callback(new Error('两次输入的密码不一样'))
+    const validatePass = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请输入你的密码'));
       } else {
-        callback()
+        if (this.user.passwordAgain !== '') {
+          // 对第二个密码框单独验证
+          this.$refs.user.validateField('passwordAgain');
+        }
+        callback();
       }
-    }
-    // 返回的数据
+    };
+    const validatePassCheck = (rule, value, callback) => {
+      if (value === '') {
+        callback(new Error('请再次输入您的密码'));
+      } else if (value !== this.user.password) {
+        callback(new Error('这两个输入密码不匹配！'));
+      } else {
+        callback();
+      }
+    };
     return {
-      logining: false,
       user: {
-        account: '',
-        checkPass: '',
-        checkRepeatPass: ''
+        username: '',
+        password: '',
+        passwordAgain: ''
       },
-      rules2: {
-        account: [{ required: true, message: '账号不能为空', trigger: 'blur' }],
-        checkPass: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-        checkRepeatPass: [{ validator: checkRepeatPass, trigger: 'blur' }]
-      }
+      ruleInline: {
+        username: [
+          { required: true, message: '请输入用户', trigger: 'blur' }
+        ],
+        password: [
+          { validator: validatePass, trigger: 'blur' }
+        ],
+        passwordAgain: [
+          { validator: validatePassCheck, trigger: 'blur' }
+        ],
+      },
     }
   },
   methods: {
-    handleSubmit() {
-      // 必须是二次验证
+    ...mapMutations([
+      USER_REG
+    ]),
+    ...mapActions([
+      'UserSignUp'
+    ]),
+    singUp() {
       this.$refs.user.validate(valid => {
         if (valid) {
-          let obj = {
-            username: this.user.account,
-            password: this.user.checkPass
+          let user = {
+            username: this.user.username,
+            password: this.user.password
           }
-          this.$store.dispatch('UserReg', obj)
+          this.UserSignUp(user).then(res => {
+            if (res.data.success) {
+              this.USER_REG(res.data.token)
+              this.$router.replace({
+                path: '/admin'
+              })
+              this.$Message.success('注册成功!')
+            } else {
+              this.$Message.error(res.data.info)
+            }
+          }).catch(
+            this.$Message.error(res.data.info)
+          )
         } else {
-          // 前端验证未通过
-          console.log('error submit!!')
+          this.$Message.error('请检查输入的信息')
           return false
         }
       })
@@ -92,8 +128,36 @@ export default {
 }
 </script>
 
-<style scoped>
-.el-form-item {
-  text-align: center;
-}
+<style lang="stylus" scoped>
+.container
+  margin 0
+  background-color #4c4c4c
+  min-width 680px
+  position absolute
+  top 0
+  bottom 0
+  left 0
+  right 0
+
+  .title
+    text-align center
+    margin 0px auto
+    text-align center
+    color #505458
+
+.login-form, .reg-form
+  border-radius 5px
+  background-color #f9fafc
+  margin 150px auto 20px auto
+  box-shadow 0 10 10 #eee
+  width 25rem
+  padding 20px 20px 10px 20px
+  opacity 1
+
+  .form-botton
+    display flex
+    justify-content space-between
+
+    .login-button
+      margin-right 30px
 </style>

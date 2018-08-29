@@ -1,17 +1,27 @@
-<template lang="html">
+<template>
   <div class="tags_wrap">
-    <transition-group enter-active-class="animated shake" tag="ul" class="tags_list">
-      <li v-for='(item,index) in items' :key="index">
-        <a class="tag_btn" :to="`/tags/${item.id}`" @click.prevent="getArticleListByTag(item.name)" :class="{'active':index==selected}">{{item.name}}</a>
+    <transition-group enter-active-class="animated shake"
+                      tag="ul"
+                      class="tags_list">
+      <li v-for='(item,index) in items'
+          :key="index">
+        <a class="tag_btn"
+           :to="`/tags/${item.id}`"
+           @click.prevent="getArticleListByTag(item.name)"
+           :class="{'active':index==selected}">{{item.name}}</a>
       </li>
     </transition-group>
     <transition-group enter-active-class="animated lightSpeedIn">
-      <article v-for='(item,index) in articleLists' :key="index">
+      <article v-for='(item,index) in articleLists'
+               :key="index">
         <header>
-          <p class="home_creatAt" v-html="markedToHtml(item.content)" @click="routrJump(item.id)"></p>
+          <p class="home_creatAt"
+             v-html="markedToHtml(item.content)"
+             @click="routrJump(item.id)"></p>
         </header>
         <footer>
-          <router-link class="home_readMore" :to="{path:`/article/${item.id}`}">阅读全文</router-link>
+          <router-link class="home_readMore"
+                       :to="{path:`/article/${item.id}`}">阅读全文</router-link>
         </footer>
       </article>
     </transition-group>
