@@ -40,8 +40,8 @@ export default {
     return instance.post('/auth/userLogin', data)
   },
   // //获取文章列表{不带分页获取}
-  getArticleList() {
-    return instance.get('/auth/article/lists');
+  getArticleList(params) {
+    return instance.post('/auth/article/lists',params);
   },
   getArticleListByTag(params) {
     return instance.post('/auth/article/getListByTag',params);

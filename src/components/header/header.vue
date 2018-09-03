@@ -23,67 +23,64 @@
 </template>
 
 <script>
-  export default {
-    data() {
-      return {};
+export default {
+  data() {
+    return {};
+  },
+  methods: {
+    routeJump(name) {
+      switch (name) {
+        case 'home':
+          this.$router.push({
+            path: '/'
+          })
+          break;
+        case 'tags':
+          this.$router.push({
+            path: '/tags'
+          })
+          break;
+        case 'about':
+          this.$router.push({
+            path: '/about'
+          })
+          break;
+        default:
+          this.$router.push({
+            path: '/'
+          })
+      }
+      console.log(name)
     },
-    methods: {
-      routeJump(name) {
-        switch (name) {
-          case 'home':
-            this.$router.push({
-              path: '/'
-            })
-            break;
-          case 'tags':
-            this.$router.push({
-              path: '/tags'
-            })
-            break;
-          case 'about':
-            this.$router.push({
-              path: '/about'
-            })
-            break;
-          default:
-            this.$router.push({
-              path: '/'
-            })
-        }
-        console.log(name)
-      },
-    }
-  };
+  }
+};
 
 </script>
 
 <style lang="stylus" scoped>
-header {
-  height: 10rem;
-  display: flex;
-  flex-direction: column;
-  border-radius: 25px;
-}
+header
+  height 10rem
+  display flex
+  flex-direction column
+  border-radius 25px
 
-.header-bg {
-  display: flex; // justify-content:center;
+.header-bg
+  display flex // justify-content:center;
   // align-items:center;
-  position: fixed;
-  height: 10rem;
-  width: 100%;
-  left: 0;
-  top: 0;
-  background-color: #fff;
-  box-shadow: 0px 1px 40px #888;
-}
+  position fixed
+  height 10rem
+  width 100%
+  left 0
+  top 0
+  background-color #fff
+  box-shadow 0px 1px 40px #888
 
-.title {
-  display: inline-block;
-  width: 20rem;
-  background-color: #d6d6d6;
-  height: 10rem;
-  color: #000;
-  font-size: 50px;
-  cursor: pointer;
-}
+.title
+  display inline-block
+  width 20rem
+  background-color #d6d6d6
+  height 10rem
+  color #000
+  font-size 50px
+  cursor pointer
 </style>

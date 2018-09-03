@@ -1,7 +1,10 @@
 import articlelist from '../models/article.js'
 
 const getArticlelistAll = async function (ctx) {
-  const result = await articlelist.getArticlelist() // 通过await “同步”地返回查询结果
+  console.log(ctx.request.body)
+  const pageNumber = ctx.request.body.pageNumber
+  const pageSize = ctx.request.body.pageSize
+  const result = await articlelist.getArticlelist(pageNumber,pageSize) // 通过await “同步”地返回查询结果
   ctx.body = {
     success: true,
     result // 将请求的结果放到response的body里返回

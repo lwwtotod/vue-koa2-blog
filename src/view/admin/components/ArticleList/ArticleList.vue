@@ -28,9 +28,12 @@
                :data="articleLists"></Table>
       </div>
       <div class="page-paging">
-        <Page :total="40"
+        <Page :total="page.pageTotal"
+              @on-page-size-change="onPageSizeChange"
+              @on-change="onPageNumberChange"
               size="small"
               show-elevator
+              show-total
               show-sizer />
       </div>
     </Content>
@@ -42,6 +45,11 @@ import api from '@/api'
 export default {
   data() {
     return {
+      page: {
+        pageSize: 10,
+        pageNumber: 1,
+        pageTotal: 0,
+      },
       color: [
         'success',
         'primary',
@@ -141,8 +149,15 @@ export default {
     }
   },
   methods: {
+    onPageSizeChange(pageSize) {
+      this.page.pageSize = pageSize
+      this.getLists()
+    },
+    onPageNumberChange(pageNumber) {
+      this.page.pageNumber = (pageNumber - 1) * this.page.pageSize
+      this.getLists()
+    },
     delete(id) {
-      console.log(id, 111)
       this.$Modal.confirm({
         title: '提示',
         content: '<p>是否删除</p>',
@@ -168,11 +183,17 @@ export default {
     },
     getLists() {
       this.loading = true
+      let param = {
+        pageSize: this.page.pageSize,
+        pageNumber: this.page.pageNumber,
+
+      }
       api
-        .getArticleList()
+        .getArticleList(param)
         .then(res => {
           if (res.data.success) {
-            this.articleLists = res.data.result
+            this.page.pageTotal = res.data.result.count
+            this.articleLists = res.data.result.rows
           } else {
             console.error(res)
           }

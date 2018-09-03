@@ -53,14 +53,11 @@ export default {
     }
   },
   computed: {
-    menuitemClasses: function() {
+    menuitemClasses: function () {
       return ['menu-item', this.isCollapsed ? 'collapsed-menu' : '']
     }
   },
   methods: {
-    routerGo(item) {
-      console.log(item, 111)
-    },
     userLogout() {
       this.$Modal.confirm({
         title: '提示',
@@ -76,69 +73,56 @@ export default {
     }
   },
   created() {
-    console.log(this.$router.options)
   }
 }
 </script>
 <style scoped lang="stylus">
-.layout-con {
-  height: 100%;
-  width: 100%;
-}
+.layout-con
+  height 100%
+  width 100%
 
-.menu-item {
-  span {
-    display: inline-block;
-    overflow: hidden;
-    width: 69px;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: bottom;
-    transition: width 0.2s ease 0.2s;
-  }
+.menu-item
+  span
+    display inline-block
+    overflow hidden
+    width 69px
+    text-overflow ellipsis
+    white-space nowrap
+    vertical-align bottom
+    transition width 0.2s ease 0.2s
 
-  i {
-    transform: translateX(0px);
-    transition: font-size 0.2s ease, transform 0.2s ease;
-    vertical-align: middle;
-    font-size: 16px;
-  }
-}
+  i
+    transform translateX(0px)
+    transition font-size 0.2s ease, transform 0.2s ease
+    vertical-align middle
+    font-size 16px
 
-.collapsed-menu {
-  span {
-    width: 0px;
-    transition: width 0.2s ease;
-  }
+.collapsed-menu
+  span
+    width 0px
+    transition width 0.2s ease
 
-  i {
-    transform: translateX(5px);
-    transition: font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s;
-    vertical-align: middle;
-    font-size: 22px;
-  }
-}
+  i
+    transform translateX(5px)
+    transition font-size 0.2s ease 0.2s, transform 0.2s ease 0.2s
+    vertical-align middle
+    font-size 22px
 
-.user-avatar {
-  float: right;
-  margin-right: 20px;
+.user-avatar
+  float right
+  margin-right 20px
 
-  .content {
-    span {
-      display: block;
-      font-size: 16px;
-      text-align: center;
-      margin: 4px auto;
+  .content
+    span
+      display block
+      font-size 16px
+      text-align center
+      margin 4px auto
 
-      &:hover {
-        background: #e4e7ed;
-        cursor: pointer;
-      }
-    }
-  }
+      &:hover
+        background #e4e7ed
+        cursor pointer
 
-  &:hover {
-    cursor: pointer;
-  }
-}
+  &:hover
+    cursor pointer
 </style>

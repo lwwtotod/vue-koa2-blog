@@ -6,7 +6,7 @@ const router = koaRouter()
 
 // router.get('/user/:id', auth.getUserInfo) // 定义url的参数是id
 router.get('/getTabsList', tabs.getTabslist)
-router.get('/article/lists', article.getArticlelistAll)
+router.post('/article/lists', article.getArticlelistAll)
 router.post('/article/onePage', article.getArticleById)
 router.post('/article/getListByTag', article.getArticleByTag)
 

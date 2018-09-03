@@ -18,157 +18,146 @@
 </template>
 
 <script>
-  import marked from 'marked'
-  import api from '@/api'
-  export default {
-    name: 'Home',
-    data() {
-      return {
-        items: [{
-          id: null,
-          title: null,
-          classification: null,
-          content: ''
-        }],
-        loading: false,
-        loadMoreFlag: false,
-        loadMoreText: '加载更多',
-        loadMoreShow: false, //加载更多
-        page: 1,
-        limit: 10
-      }
-    },
-    components: {},
-    filters: {
-
-    },
-    methods: {
-      routrJump(id) {
-        this.$router.push({
-          path: `/article/${id}`
-        })
+import marked from 'marked'
+import api from '@/api'
+export default {
+  name: 'Home',
+  data() {
+    return {
+      page: {
+        pageSize: 10,
+        pageNumber: 1,
+        pageTotal: 0,
       },
-      markedToHtml(md) {
-        return marked(md.slice(0, 100))
-      },
-      loadData() {
-        api.getArticleList().then(res => {
-              if (res.data.success) {
-            for (let i = 0; i < res.data.result.length; i++) {
-              this.items.push(res.data.result[i])
-            }
-          } else {
-            console.error(res)
-          }
-          this.loadMoreShow = false
-        })
-      }
-    },
-    mounted() {
-      this.loadData();
+      items: [{
+        id: null,
+        title: null,
+        classification: null,
+        content: ''
+      }],
+      loading: false,
+      loadMoreFlag: false,
+      loadMoreText: '加载更多',
+      loadMoreShow: false, //加载更多
+      page: 1,
+      limit: 10
     }
+  },
+  components: {},
+  filters: {
+
+  },
+  methods: {
+    routrJump(id) {
+      this.$router.push({
+        path: `/article/${id}`
+      })
+    },
+    markedToHtml(md) {
+      return marked(md.slice(0, 100))
+    },
+    loadData() {
+      let param = {
+        pageSize: this.page.pageSize,
+        pageNumber: this.page.pageNumber,
+
+      }
+      api.getArticleList(param).then(res => {
+        if (res.data.success) {
+          this.items = res.data.result.rows
+        } else {
+          console.error(res)
+        }
+        this.loadMoreShow === false
+      })
+    }
+  },
+  mounted() {
+    this.loadData();
   }
+}
 
 </script>
 
 <style lang="stylus" scoped>
-h2, h4 {
-  margin: 0;
-}
+h2, h4
+  margin 0
 
-.home_wrapper {
-  margin: 3rem auto;
-  list-style: none;
+.home_wrapper
+  margin 3rem auto
+  list-style none
 
-  article {
-    padding: 1rem 3rem; // border: 1px solid #d2d2d2;
-    margin-bottom: 2rem;
-    border-radius: 5rem;
-    background-color: rgba(100, 100, 100, 0.2);
-  }
-}
+  article
+    padding 1rem 3rem // border: 1px solid #d2d2d2;
+    margin-bottom 2rem
+    border-radius 5rem
+    background-color rgba(100, 100, 100, 0.2)
 
-.home_title {
-  display: block;
-  font-size: 2.6rem;
-  font-weight: 400;
-  color: #404040;
-  padding: 0.8rem 0;
+.home_title
+  display block
+  font-size 2.6rem
+  font-weight 400
+  color #404040
+  padding 0.8rem 0
 
-  &:hover {
-    opacity: 0.5;
-  }
-}
+  &:hover
+    opacity 0.5
 
-.home_creatAt {
-  cursor: pointer;
-  max-height: 11rem;
-  overflow: hidden;
-  font-family: 'Comic Sans MS', curslve, sans-serif;
-  font-size: 1.6rem;
-  color: #7f8c8d;
-  margin: 0;
-}
+.home_creatAt
+  cursor pointer
+  max-height 11rem
+  overflow hidden
+  font-family 'Comic Sans MS', curslve, sans-serif
+  font-size 1.6rem
+  color #7f8c8d
+  margin 0
 
-.home_main {
-  font-size: 1.6rem;
-  color: #34495e;
-  line-height: 1.6em;
-}
+.home_main
+  font-size 1.6rem
+  color #34495e
+  line-height 1.6em
 
-footer {
-  text-align: right;
-}
+footer
+  text-align right
 
-.home_readMore {
-  font-size: 2rem;
-  color: #919191;
-  font-weight: 600;
+.home_readMore
+  font-size 2rem
+  color #919191
+  font-weight 600
 
-  &:hover {
-    opacity: 0.6;
-  }
-}
+  &:hover
+    opacity 0.6
 
-.loadMore {
-  margin: 4rem 0 0 0;
-  display: flex;
-  display: webkit-flex;
+.loadMore
+  margin 4rem 0 0 0
+  display flex
+  display webkit-flex
 
-  button {
-    cursor: pointer;
-    outline: none;
-    padding: 1rem;
-    margin: auto;
-    border-radius: 0.5rem;
-    color: rgba(0, 0, 0, 1);
-    border: 1px solid #bfcbd9;
-    background-color: #f7f7f7;
-  }
-}
+  button
+    cursor pointer
+    outline none
+    padding 1rem
+    margin auto
+    border-radius 0.5rem
+    color rgba(0, 0, 0, 1)
+    border 1px solid #bfcbd9
+    background-color #f7f7f7
 
-@media screen and (max-width: 786px) {
-  .home_title {
-    font-size: 1.8rem;
-    line-height: 1.5em;
-  }
+@media screen and (max-width: 786px)
+  .home_title
+    font-size 1.8rem
+    line-height 1.5em
 
-  .home_creatAt {
-    font-size: 1.4rem;
-  }
+  .home_creatAt
+    font-size 1.4rem
 
-  .loadMore {
-    margin: 3rem 0 0.8rem 0;
-  }
-}
+  .loadMore
+    margin 3rem 0 0.8rem 0
 
-@media screen and (max-width: 480px) {
-  .home_main {
-    font-size: 1.4rem;
-  }
+@media screen and (max-width: 480px)
+  .home_main
+    font-size 1.4rem
 
-  .home_readMore {
-    font-size: 1.8rem;
-  }
-}
+  .home_readMore
+    font-size 1.8rem
 </style>
