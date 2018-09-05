@@ -11,7 +11,7 @@ import jwt from 'koa-jwt'
 const app = new Koa()
 const router = koaRouter()
 
-let port = process.env.PORT
+let port = process.env.BACK_END_PORT
 
 app.use(koaBodyparser())
 app.use(json())
@@ -47,7 +47,6 @@ app.on('error', function (err, ctx) {
 
 router.use('/auth', auth.routes()) // 挂载到koa-router上，并且把所有请求加上'/auth'路径
 router.use('/api', jwt({ secret: 'jwtsss' }), api.routes()) // 所有走/api/打头的请求都需要经过jwt验证。
-// router.use('/api',  api.routes()) // 不走jwt验证
 
 app.use(router.routes()) // 将路由规则挂载到Koa上。
 

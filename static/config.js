@@ -1,1 +1,0 @@
-export const client = new hprose.HttpClient("http://localhost:8081/hprose");

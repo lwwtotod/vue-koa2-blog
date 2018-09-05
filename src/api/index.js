@@ -46,14 +46,6 @@ export default {
   getArticleListByTag(params) {
     return instance.post('/auth/article/getListByTag',params);
   },
-  // // 不带分页获取文章
-  // getArticleLists(params) {
-  //   return front_instance.post('/api/article/articleLists', params);
-  // },
-  // // 根据classify获取文章列表
-  // getArticlesByClassify(params) {
-  //   return front_instance.post('/api/article/noAuthArtilcelists', params);
-  // },
   // // 创建文章
   createArticle(params) {
     return instance.post('/api/article/create', params);
@@ -66,10 +58,6 @@ export default {
   getOneArticle(params) {
     return instance.post('/auth/article/onePage', params);
   },
-  // // 根据postID获取一篇文章(不带权限)
-  // getOneArticleNoAuth(params) {
-  //   return front_instance.post('/api/article/noAuth', params);
-  // },
   // // 编辑一篇文章
   editArticle(params) {
     return instance.post('/api/article/edit', params);
@@ -78,9 +66,6 @@ export default {
   getClassify() {
     return instance.get('/auth/getTabsList');
   },
-  // getNoAuthClass() {
-  //   return front_instance.get('/api/classify/noAuth');
-  // },
 
   // // 删除某一个分类
   removeClassifyList(params) {
