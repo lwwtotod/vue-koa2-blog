@@ -1,4 +1,4 @@
-import tablist from '../models/tabs.js'
+import tablist from '../models/tabs.js.js'
 
 const getTabslist = async function (ctx) {
     const result = await tablist.getTabsById() // 通过await “同步”地返回查询结果

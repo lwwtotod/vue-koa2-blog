@@ -7,4 +7,4 @@ require('babel-core/register')({
     }]
   ]
 })
-require('./app.js')
+require('./app.js.js')

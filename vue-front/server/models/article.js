@@ -1,4 +1,4 @@
-import db from '../config/db.js' // 引入todolist的表结构
+import db from '../config/db.js.js' // 引入todolist的表结构
 import uuid from 'uuid/v1'
 const articleModel = '../schema/article.js'
 const TestDb = db.Test // 引入数据库

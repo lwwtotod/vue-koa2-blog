@@ -1,4 +1,4 @@
-import db from '../config/db.js' // 引入user的表结构
+import db from '../config/db.js.js' // 引入user的表结构
 import uuid from 'uuid/v1'
 import bcrypt from 'bcryptjs'
 const userModel = '../schema/user.js'

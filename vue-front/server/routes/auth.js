@@ -1,6 +1,6 @@
-import tabs from '../controllers/tabs.js'
-import article from '../controllers/article.js'
-import auth from '../controllers/user.js'
+import tabs from '../controllers/tabs.js.js'
+import article from '../controllers/article.js.js'
+import auth from '../controllers/user.js.js'
 import koaRouter from 'koa-router'
 const router = koaRouter()
 

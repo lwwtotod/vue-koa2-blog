@@ -1,4 +1,4 @@
-import articlelist from '../models/article.js'
+import articlelist from '../models/article.js.js'
 
 const getArticlelistAll = async function (ctx) {
     const result = await articlelist.getArticlelist() // 通过await “同步”地返回查询结果
