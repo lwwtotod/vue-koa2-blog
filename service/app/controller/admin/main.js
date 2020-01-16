@@ -23,7 +23,11 @@ class MainController extends Controller {
     if (res.length > 0) {
       //登录成功,进行session缓存
       let openId = new Date().getTime()
-      this.ctx.session.openId = { openId: openId }
+      this.ctx.session.openId = {
+        openId: openId,
+        username: username,
+        password: password,
+      }
       this.ctx.body = {
         data: {
           msg: '登录成功',
@@ -49,8 +53,12 @@ class MainController extends Controller {
   async checkOpenId() {
     let cOpenId = this.ctx.request.body.openId
     let sOpenId = this.ctx.session.openId.openId
+    let username = this.ctx.session.openId.username
+    const sql = `SELECT * FROM admin_user WHERE username = "${username}"`
+
+    const res = await this.app.mysql.query(sql)
     if (sOpenId & (cOpenId == sOpenId)) {
-      this.ctx.body = { data: '已经登录' }
+      this.ctx.body = { data: '已经登录', userinfo: res[0] }
     } else {
       this.ctx.body = { data: '没有登录' }
     }
