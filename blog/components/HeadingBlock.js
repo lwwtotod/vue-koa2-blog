@@ -1,39 +1,31 @@
-import React, { PureComponent } from "react";
-import PropTypes from "prop-types";
-import Heading from "./Heading";
+import React, { PureComponent } from 'react'
+import PropTypes from 'prop-types'
+import Heading from './Heading'
 
 class HeadingBlock extends PureComponent {
   renderHtml = () => {
-    const { level, children } = this.props;
+    const { level, children } = this.props
 
     if (children && children.length > 0) {
-      const nodeValue = children[0].props.value;
+      const nodeValue = children[0].props.value
       return (
         <>
-            <Heading level={`h${level}`} id={nodeValue}>
+          <Heading level={`h${level}`} id={nodeValue}>
             <a href={`#${nodeValue}`} className="link">
-                #
+              #
             </a>
             <span className="title">{children}</span>
-            
-            </Heading>
-           
-
+          </Heading>
         </>
-      );
+      )
     } else {
-      return <>{children}</>;
+      return <>{children}</>
     }
-  };
-
- 
+  }
 
   render() {
-    return (<>
-        {this.renderHtml()}
-       
-     </>);
+    return <>{this.renderHtml()}</>
   }
 }
 
-export default HeadingBlock;
+export default HeadingBlock

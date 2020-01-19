@@ -5,7 +5,7 @@ const Controller = require('egg').Controller
 class MainController extends Controller {
   async index() {
     //首页的文章列表数据
-    this.ctx.body = 'hi api'
+    this.ctx.body = 'api index'
   }
 
   //判断用户名密码是否正确
@@ -49,7 +49,16 @@ class MainController extends Controller {
     this.ctx.session.openId = null
     this.ctx.body = { data: '退出成功' }
   }
+  //通过用户名查询用户信息
+  async getUserInfoByName() {
+    let username = this.ctx.request.openId.username
+    const sql = `SELECT * FROM admin_user WHERE username = "${username}"`
 
+    const res = await this.app.mysql.query(sql)
+
+    this.ctx.body = { userinfo: res[0] }
+  }
+  //是否登录拿到用户信息
   async checkOpenId() {
     let cOpenId = this.ctx.request.body.openId
     let sOpenId = this.ctx.session.openId.openId
@@ -72,6 +81,7 @@ class MainController extends Controller {
   //添加文章
   async addArticle() {
     let tmpArticle = this.ctx.request.body
+    console.log('TCL: MainController -> addArticle -> tmpArticle', tmpArticle)
     // tmpArticle.
     const result = await this.app.mysql.insert('article', tmpArticle)
     const insertSuccess = result.affectedRows === 1
@@ -118,7 +128,7 @@ class MainController extends Controller {
       'SELECT article.id as id,' +
       'article.title as title,' +
       'article.introduce as introduce,' +
-      "FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime," +
+      'article.addTime as addTime,' +
       'article.view_count as view_count ,' +
       'article.part_count as part_count ,' +
       'article.isTop as isTop ,' +
@@ -149,8 +159,7 @@ class MainController extends Controller {
       "FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime," +
       'article.view_count as view_count ,' +
       'article.part_count as part_count ,' +
-      'type.typeName as typeName ,' +
-      'type.id as typeId ' +
+      'type.id as type_id ' +
       'FROM article LEFT JOIN type ON article.type_id = type.Id ' +
       'WHERE article.id=' +
       id
@@ -158,15 +167,14 @@ class MainController extends Controller {
     this.ctx.body = { data: result }
   }
 
-  //增加大胖逼逼叨的方法
-  async addBBD() {
-    let tmpBBD = this.ctx.request.body
-    const result = await this.app.mysql.insert('bibidao', tmpBBD)
+  async addVideo() {
+    let tmpVideo = this.ctx.request.body
+    const result = await this.app.mysql.insert('bibidao', tmpVideo)
     const insertSuccess = result.affectedRows === 1
     this.ctx.body = { isScuccess: insertSuccess }
   }
-  //读取大胖逼逼叨的列表
-  async getListBBD() {
+
+  async getListVideo() {
     const resList = await this.app.mysql.select('bibidao', {
       orders: [['id', 'desc']],
     })
@@ -174,8 +182,7 @@ class MainController extends Controller {
     this.ctx.body = { list: resList }
   }
 
-  //根据ID删除逼逼叨列表的方法
-  async delBBDbyId() {
+  async delVideobyId() {
     let id = this.ctx.params.id
     const res = await this.app.mysql.delete('bibidao', { id: id })
     this.ctx.body = { data: res }

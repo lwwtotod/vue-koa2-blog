@@ -11,8 +11,8 @@ module.exports = app =>{
     router.post('/admin/checkLogin',controller.admin.main.checkLogin)
     router.post('/admin/checkOpenId',controller.admin.main.checkOpenId)
     router.post('/admin/outLogin',adminauth,controller.admin.main.outLogin)
-    router.post('/admin/addBBD',adminauth,controller.admin.main.addBBD)
-    router.get('/admin/getListBBD',adminauth,controller.admin.main.getListBBD)
-    router.get('/admin/delBBDbyId/:id',adminauth,controller.admin.main.delBBDbyId)
+    router.post('/admin/addVideo',adminauth,controller.admin.main.addVideo)
+    router.get('/admin/getListVideo',adminauth,controller.admin.main.getListVideo)
+    router.get('/admin/delVideobyId/:id',adminauth,controller.admin.main.delVideobyId)
     router.post('/admin/updateIsTop',adminauth,controller.admin.main.updateIsTop)
 }

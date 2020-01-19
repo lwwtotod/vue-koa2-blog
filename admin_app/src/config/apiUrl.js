@@ -10,9 +10,9 @@ let servicePath = {
     checkLogin:ipUrl + 'checkLogin' ,  //  检查用户名密码是否正确
     checkOpenId:ipUrl + 'checkOpenId' ,  //  检查OPendId是否和服务器一样
     outLogin:ipUrl + 'outLogin' ,  //  退出登录
-    addBBD:ipUrl + 'addBBD' ,  //  增加大胖逼逼叨视频
-    getListBBD:ipUrl + 'getListBBD' ,  //  大胖逼逼叨列表
-    delBBDbyId:ipUrl + 'delBBDbyId/' ,  //  删除大胖逼逼叨单一项
+    addVideo:ipUrl + 'addVideo' ,  //  增加大胖逼逼叨视频
+    getListVideo:ipUrl + 'getListVideo' ,  //  大胖逼逼叨列表
+    delVideobyId:ipUrl + 'delVideobyId/' ,  //  删除大胖逼逼叨单一项
     updateIsTop:ipUrl + 'updateIsTop' ,  //  修改文章是否置顶
 }
 
