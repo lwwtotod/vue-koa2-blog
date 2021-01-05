@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "animate.css": "^3.7.0",
-    "axios": "^0.15.3",
+    "axios": "^0.21.1",
     "babel-preset-env": "^1.7.0",
     "bcryptjs": "^2.4.3",
     "highlight.js": "^9.12.0",
